@@ -6,7 +6,7 @@ Este repositório contém um script de instalação automatizado para configurar
 
 ## 🎨 Visual
 
-![Arch-Hyprland Desktop](./.github/screenshot_2025-09-13_15-57-29.png)
+![Arch-Hyprland Desktop](./.github/screenshot_dark.png)
 
 ![placeholder](https://img.shields.io/badge/Desktop-Screenshot_here-blue?style=for-the-badge&logo=none)
 
