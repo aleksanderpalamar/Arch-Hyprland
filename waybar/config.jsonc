@@ -21,7 +21,7 @@
     "custom/separator#line"
     //"hyprland/window"
   ],
-  "modules-center": [],
+  "modules-center": ["clock"],
   "modules-right": [
     "tray",
     "custom/separator#line",
@@ -30,7 +30,6 @@
     "pulseaudio",
     "group/mobo_drawer",
     "custom/separator#line",
-    "clock",
     "group/notify",
     "group/power"
   ]
