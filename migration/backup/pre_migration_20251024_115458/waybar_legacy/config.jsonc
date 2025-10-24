@@ -1,0 +1,36 @@
+{
+  "include": [
+    "~/.config/waybar/Modules",
+    "~/.config/waybar/ModulesGroups",
+    "~/.config/waybar/ModulesWorkspaces",
+    "~/.config/waybar/ModulesCustom"
+  ],
+  "layer": "top",
+  "mode": "dock",
+  "exclusive": true,
+  "passthrough": false,
+  "position": "top",
+  "spacing": 3,
+  "fixed-center": true,
+  "ipc": true,
+  "margin-top": 3,
+  "margin-left": 8,
+  "margin-right": 8,
+  "modules-left": [
+    "hyprland/workspaces#numbers",
+    "custom/separator#line"
+    //"hyprland/window"
+  ],
+  "modules-center": ["clock"],
+  "modules-right": [
+    "tray",
+    "custom/separator#line",
+    "network",
+    "bluetooth",
+    "pulseaudio",
+    "group/mobo_drawer",
+    "custom/separator#line",
+    "group/notify",
+    "group/power"
+  ]
+}
