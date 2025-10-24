@@ -121,22 +121,51 @@ _set_permissions() {
     chmod +x "$SRCDIR/services/"*.sh 2>/dev/null || true
 }
 
+# Função para corrigir configurações desatualizadas
+_fix_deprecated_configs() {
+    _print "Removendo configurações problemáticas..."
+    
+    # Remove qualquer configuração de gestos que cause problemas
+    local input_conf="$HOME/.config/hypr/UserConfigs/UserInput.conf"
+    if [ -f "$input_conf" ]; then
+        _warn "Removendo configurações de gestos problemáticas"
+        # Remove toda a seção gestures que causa problemas
+        sed -i '/^gestures {$/,/^}$/d' "$input_conf"
+        # Adiciona comentário explicativo
+        echo "" >> "$input_conf"
+        echo "# Gestures configuration disabled due to compatibility issues" >> "$input_conf"
+        echo "# Enable manually if needed for your Hyprland version" >> "$input_conf"
+    fi
+}
+
 # Função para inicializar o sistema modular
 _initialize_system() {
     _print "Inicializando sistema modular..."
     SRCDIR=$(pwd)
     
-    # Executa o controlador do sistema se existir
-    if [ -f "$SRCDIR/tools/system-controller.sh" ]; then
-        _print "Executando controlador do sistema..."
-        bash "$SRCDIR/tools/system-controller.sh" --init
+    # Verifica se as configurações foram copiadas corretamente
+    if [ -f "$HOME/.config/hypr/hyprland.conf" ]; then
+        _print "✓ Configuração principal do Hyprland copiada"
+    else
+        _warn "✗ Erro ao copiar configuração principal do Hyprland"
     fi
     
-    # Analisa configurações se necessário
-    if [ -f "$SRCDIR/tools/config-analyzer.sh" ]; then
-        _print "Analisando configurações..."
-        bash "$SRCDIR/tools/config-analyzer.sh" --install-check
+    if [ -d "$HOME/.config/hypr/UserConfigs" ]; then
+        _print "✓ UserConfigs copiados com sucesso"
+    else
+        _warn "✗ Erro ao copiar UserConfigs"
     fi
+    
+    if [ -d "$HOME/.config/hypr/scripts" ]; then
+        _print "✓ Scripts copiados e permissões definidas"
+    else
+        _warn "✗ Erro ao copiar scripts"
+    fi
+    
+    # Corrige configurações desatualizadas
+    _fix_deprecated_configs
+    
+    _print "Sistema básico configurado e pronto para uso"
 }
 
 # Função principal
