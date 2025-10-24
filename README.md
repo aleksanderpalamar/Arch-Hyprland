@@ -1,52 +1,88 @@
-# 📚 Documentação - Arch-Hyprland
+# 🏔️ Arch-Hyprland
 
-Documentação completa para instalação, uso e personalização do ambiente Hyprland.
+**Sistema completo de configuração Hyprland para Arch Linux**
 
-## 🚀 Começando
+Um ambiente desktop moderno, otimizado e totalmente funcional baseado no compositor Hyprland com sistema modular e instalação automatizada.
 
-### Instalação Rápida
+![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-blue?style=for-the-badge)
+![Arch Linux](https://img.shields.io/badge/Arch-Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
+![License](https://img.shields.io/github/license/aleksanderpalamar/Arch-Hyprland?style=for-the-badge)
+
+## ✨ Características
+
+- 🎯 **Instalação Automática** - Script único instala tudo
+- 🎨 **Temas Dinâmicos** - Cores geradas automaticamente do wallpaper
+- ⚡ **Performance Otimizada** - Sistema de cache e lazy loading
+- 🔧 **Modular** - Componentes independentes e customizáveis
+- 🖼️ **Wallpapers** - Seletor visual integrado
+- ⌨️ **Atalhos Intuitivos** - Configuração inspirada no i3/sway
+- � **Waybar** - Barra de status moderna e informativa
+- 🔍 **Rofi** - Menu de aplicações elegante
+
+## 🚀 Instalação Rápida
 
 ```bash
 # Clone o repositório
 git clone https://github.com/aleksanderpalamar/Arch-Hyprland.git
 cd Arch-Hyprland
 
-# Execute a instalação
+# Execute a instalação (faz backup automaticamente)
 ./install.sh
 ```
 
-### Primeiro Uso
-
-Após a instalação:
+### Após a Instalação
 
 1. **Faça logout** do desktop atual
 2. **Selecione "Hyprland"** no display manager
 3. **Use Super + Enter** para abrir o terminal
 
-## 📖 Guias Principais
+## � Componentes Inclusos
 
-### Para Usuários
+- **🪟 Hyprland** - Compositor Wayland moderno
+- **� Waybar** - Barra de status personalizável
+- **🔍 Rofi** - Lançador de aplicações elegante
+- **🖼️ Hyprpaper** - Gerenciador de wallpapers
+- **🎨 Wallust** - Gerador automático de temas
+- **🔔 SwayNC** - Centro de notificações
+- **📁 Thunar** - Gerenciador de arquivos
+- **⌨️ Kitty** - Terminal moderno e rápido
 
-- **[📖 Guia do Usuário](USER_GUIDE.md)** - Como usar e personalizar o sistema
-  - Atalhos de teclado essenciais
-  - Como personalizar wallpapers e temas
-  - Configuração de monitores
-  - Solução de problemas comuns
+## ⌨️ Atalhos Principais
 
-### Para Desenvolvedores
+| Atalho                | Ação                    |
+| --------------------- | ----------------------- |
+| `Super + Enter`       | Terminal                |
+| `Super + Q`           | Fechar janela           |
+| `Super + M`           | Sair do Hyprland        |
+| `Super + R`           | Menu de aplicações      |
+| `Super + W`           | Seletor de wallpapers   |
+| `Super + E`           | Gerenciador de arquivos |
+| `Super + 1-9`         | Trocar workspace        |
+| `Super + Shift + 1-9` | Mover janela            |
 
-- **[🏗️ Arquitetura](architecture/ARCHITECTURE.md)** - Como o sistema funciona internamente
-- **[📋 API Reference](api/API.md)** - APIs para criar componentes e plugins
+## 🎨 Personalização Rápida
 
-## 🎯 Casos de Uso Comuns
+### Alterar Wallpaper
 
-### 🖼️ Personalização Visual
+```bash
+Super + W  # Abre seletor visual
+```
 
-- **Alterar Wallpaper**: `Super + W` → Selecionar nova imagem
-- **Trocar Tema**: Modifique arquivos em `~/.config/hypr/UserConfigs/`
-- **Configurar Waybar**: Edite `~/.config/waybar/config.jsonc`
+### Configurar Temas
 
-### ⌨️ Atalhos Essenciais
+```bash
+# Editar configurações
+nano ~/.config/hypr/UserConfigs/UserDecorations.conf
+```
+
+### Personalizar Waybar
+
+```bash
+# Editar layout
+nano ~/.config/waybar/config.jsonc
+# Editar estilo
+nano ~/.config/waybar/style.css
+```
 
 | Atalho                | Ação                        |
 | --------------------- | --------------------------- |
@@ -111,107 +147,63 @@ systemctl --user restart pipewire
 ~/Imagens/wallpapers/    # Seus wallpapers
 ```
 
-## 🔄 Atualizações
+## 🔄 Atualização
 
 ```bash
-# Atualizar o sistema
-cd /path/to/Arch-Hyprland
+# Atualizar para versão mais recente
+cd Arch-Hyprland
 git pull
-./install.sh
+./install.sh  # Faz backup automático antes de atualizar
 ```
 
-## 📞 Suporte
+## � Documentação
 
-- **Issues**: [GitHub Issues](https://github.com/aleksanderpalamar/Arch-Hyprland/issues)
-- **Documentação**: Consulte os guias nesta pasta
-- **Logs**: Sempre inclua logs ao reportar problemas
+- **[📖 Guia do Usuário](docs/USER_GUIDE.md)** - Tutorial completo de uso
+- **[🏗️ Arquitetura](docs/architecture/ARCHITECTURE.md)** - Como funciona internamente
+- **[📋 API Reference](docs/api/API.md)** - APIs para desenvolvedores
+
+## 🛠️ Requisitos
+
+### Sistema Base
+
+- **Arch Linux** (ou derivado)
+- **yay** ou **paru** (AUR helper)
+
+### Dependências (instaladas automaticamente)
+
+- `hyprland` `waybar` `rofi` `kitty`
+- `hyprpaper` `swaync` `thunar`
+- `grim` `slurp` `swaylock`
+- `pipewire` `wireplumber` `pamixer`
+
+## 🤝 Contribuindo
+
+1. **Fork** o projeto
+2. **Crie** uma branch para sua feature
+3. **Commit** suas mudanças
+4. **Push** para a branch
+5. **Abra** um Pull Request
+
+## � Suporte
+
+- **🐛 Issues**: [GitHub Issues](https://github.com/aleksanderpalamar/Arch-Hyprland/issues)
+- **💬 Discussões**: [GitHub Discussions](https://github.com/aleksanderpalamar/Arch-Hyprland/discussions)
+- **� Contato**: aleksanderpalamar@gmail.com
+
+## � Licença
+
+Este projeto está sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
+
+## 🙏 Agradecimentos
+
+- **[Hyprland](https://hyprland.org/)** - Compositor Wayland incrível
+- **[Waybar](https://github.com/Alexays/Waybar)** - Barra de status customizável
+- **[Rofi](https://github.com/davatorium/rofi)** - Lançador versátil
+- **Comunidade Arch Linux** - Base sólida e suporte
 
 ---
 
-💡 **Dica**: Comece pelo [Guia do Usuário](USER_GUIDE.md) para aprender a usar o sistema completo!
-
-- **[PERFORMANCE.md](./PERFORMANCE.md)** - Otimizações de performance e benchmarks
-
-### 🧪 Testes
-
-- **[TESTING.md](./TESTING.md)** - Estratégia de testes e implementação de suites de teste
-
-### 🎨 Design e UX
-
-- **[DESIGN.md](./DESIGN.md)** - Guia de design e padrões visuais
-- **[USER_EXPERIENCE.md](./USER_EXPERIENCE.md)** - Melhorias de experiência do usuário
-
-### 🔧 Desenvolvimento
-
-- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Guia para contribuidores
-- **[API.md](./API.md)** - Documentação da API interna
-- **[DEBUGGING.md](./DEBUGGING.md)** - Guias de debugging e troubleshooting
-
-### 📦 Deploy e Manutenção
-
-- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Processos de deploy e release
-- **[MAINTENANCE.md](./MAINTENANCE.md)** - Guias de manutenção e monitoramento
-
-## 🗺️ Navegação Rápida
-
-### Para Desenvolvedores
-
-1. Comece com [ARCHITECTURE.md](./ARCHITECTURE.md) para entender a estrutura
-2. Leia [CONTRIBUTING.md](./CONTRIBUTING.md) para padrões de desenvolvimento
-3. Configure testes seguindo [TESTING.md](./TESTING.md)
-4. Consulte [API.md](./API.md) para APIs internas
-
-### Para Mantenedores
-
-1. Revise [SECURITY.md](./SECURITY.md) para aspectos de segurança
-2. Implemente melhorias de [IMPROVEMENTS.md](./IMPROVEMENTS.md)
-3. Use [PERFORMANCE.md](./PERFORMANCE.md) para otimizações
-4. Siga [DEPLOYMENT.md](./DEPLOYMENT.md) para releases
-
-### Para Usuários Avançados
-
-1. Consulte [USER_EXPERIENCE.md](./USER_EXPERIENCE.md) para customizações
-2. Use [DEBUGGING.md](./DEBUGGING.md) para resolução de problemas
-3. Veja [DESIGN.md](./DESIGN.md) para personalização visual
-
-## 📊 Estado da Documentação
-
-| Documento          | Status          | Última Atualização | Prioridade |
-| ------------------ | --------------- | ------------------ | ---------- |
-| IMPROVEMENTS.md    | ✅ Completo     | 2025-01-24         | Alta       |
-| SECURITY.md        | ✅ Completo     | 2025-01-24         | Alta       |
-| ARCHITECTURE.md    | ✅ Completo     | 2025-01-24         | Alta       |
-| PERFORMANCE.md     | ✅ Completo     | 2025-01-24         | Alta       |
-| TESTING.md         | ✅ Completo     | 2025-01-24         | Alta       |
-| DESIGN.md          | 🔄 Em Progresso | -                  | Média      |
-| USER_EXPERIENCE.md | 🔄 Em Progresso | -                  | Média      |
-| CONTRIBUTING.md    | 📝 Planejado    | -                  | Média      |
-| API.md             | 📝 Planejado    | -                  | Baixa      |
-| DEBUGGING.md       | 📝 Planejado    | -                  | Baixa      |
-| DEPLOYMENT.md      | 📝 Planejado    | -                  | Baixa      |
-| MAINTENANCE.md     | 📝 Planejado    | -                  | Baixa      |
-
-## 🎯 Próximos Passos
-
-### Fase Atual: Fundação (Completa)
-
-- [x] Análise de melhorias
-- [x] Documentação de segurança
-- [x] Arquitetura proposta
-- [x] Otimizações de performance
-- [x] Estratégia de testes
-
-### Próxima Fase: UX e Design
-
-- [ ] Guia de design system
-- [ ] Documentação de experiência do usuário
-- [ ] Padrões de interface
-
-### Fase Futura: Desenvolvimento
-
-- [ ] Guia de contribuição
-- [ ] Documentação de APIs
-- [ ] Processos de deploy
+⭐ **Gostou do projeto? Dê uma estrela para apoiar!**
 
 ## 🤝 Como Contribuir com a Documentação
 
@@ -246,5 +238,3 @@ Para dúvidas sobre a documentação ou sugestões de melhoria:
 Toda a documentação está sob a mesma licença MIT do projeto.
 
 ---
-
-_Esta documentação é um documento vivo e será atualizada continuamente conforme o projeto evolui._
