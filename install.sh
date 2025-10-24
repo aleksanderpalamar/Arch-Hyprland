@@ -78,17 +78,49 @@ _copy_configs() {
     mkdir -p "$HOME/.config/waybar"
     mkdir -p "$HOME/Imagens/wallpapers"
     
-    # Copia os arquivos
-    cp -r "$SRCDIR/hypr/"* "$HOME/.config/hypr/"
-    cp -r "$SRCDIR/rofi/"* "$HOME/.config/rofi/"
-    cp -r "$SRCDIR/waybar/"* "$HOME/.config/waybar/"
-    cp -r "$SRCDIR/wallpaper/"* "$HOME/Imagens/wallpapers/"
+    # Copia os arquivos da nova estrutura modular
+    cp -r "$SRCDIR/components/hyprland/"*.conf "$HOME/.config/hypr/" 2>/dev/null || true
+    cp -r "$SRCDIR/components/hyprland/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
+    cp -r "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
+    
+    cp -r "$SRCDIR/components/rofi/"*.rasi "$HOME/.config/rofi/" 2>/dev/null || true
+    cp -r "$SRCDIR/components/rofi/wallust" "$HOME/.config/rofi/" 2>/dev/null || true
+    
+    cp -r "$SRCDIR/components/waybar/config.jsonc" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp -r "$SRCDIR/components/waybar/style.css" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp -r "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
+    
+    cp -r "$SRCDIR/components/wallpaper/"*.{jpg,jpeg,png} "$HOME/Imagens/wallpapers/" 2>/dev/null || true
 }
 
 # Função para definir permissões de execução para os scripts
 _set_permissions() {
     _print "Definindo permissões de execução para os scripts..."
-    chmod +x "$HOME/.config/hypr/scripts/"*.sh
+    mkdir -p "$HOME/.config/hypr/scripts"
+    chmod +x "$HOME/.config/hypr/scripts/"*.sh 2>/dev/null || true
+    
+    # Define permissões para scripts do sistema também
+    chmod +x "$SRCDIR/scripts/"*.sh 2>/dev/null || true
+    chmod +x "$SRCDIR/tools/"*.sh 2>/dev/null || true
+    chmod +x "$SRCDIR/services/"*.sh 2>/dev/null || true
+}
+
+# Função para inicializar o sistema modular
+_initialize_system() {
+    _print "Inicializando sistema modular..."
+    SRCDIR=$(pwd)
+    
+    # Executa o controlador do sistema se existir
+    if [ -f "$SRCDIR/tools/system-controller.sh" ]; then
+        _print "Executando controlador do sistema..."
+        bash "$SRCDIR/tools/system-controller.sh" --init
+    fi
+    
+    # Analisa configurações se necessário
+    if [ -f "$SRCDIR/tools/config-analyzer.sh" ]; then
+        _print "Analisando configurações..."
+        bash "$SRCDIR/tools/config-analyzer.sh" --install-check
+    fi
 }
 
 # Função principal
@@ -101,9 +133,11 @@ main() {
     _backup_configs
     _copy_configs
     _set_permissions
+    _initialize_system
     
     _print "------------------------------------------------------"
     _print "Instalação concluída com sucesso!"
+    _print "Sistema modular inicializado e configurações geradas!"
     _warn "É recomendado reiniciar o sistema para que todas as alterações tenham efeito."
     _print "------------------------------------------------------"
 }
