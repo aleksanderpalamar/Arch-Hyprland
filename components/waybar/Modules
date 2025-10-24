@@ -1,0 +1,135 @@
+{
+  "tray": {
+    "icon-size": 20,
+    "spacing": 4
+  },
+  "network": {
+    "icon-size": 30,
+    "format": "{ifname}",
+    "format-wifi": "{icon}",
+    "format-ethernet": "󰌘",
+    "format-disconnected": "󰌙",
+    "tooltip-format": "{ipaddr}  {bandwidthUpBits}  {bandwidthDownBits}",
+    "format-linked": "󰈁 {ifname} (No IP)",
+    "tooltip-format-wifi": "{essid} {icon} {signalStrength}%",
+    "tooltip-format-ethernet": "{ifname} 󰌘",
+    "tooltip-format-disconnected": "󰌙 Disconnected",
+    "max-length": 30,
+    "format-icons": [
+      "󰤯",
+      "󰤟",
+      "󰤢",
+      "󰤥",
+      "󰤨"
+    ]
+  },
+  "power-profiles-daemon": {
+    "format": "{icon} ",
+    "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
+    "tooltip": true,
+    "format-icons": {
+      "default": "",
+      "performance": "",
+      "balanced": "",
+      "power-saver": ""
+    }
+  },
+  "clock": {
+    "interval": 1,
+    "format": "{:%B %d, %H:%M}",
+    "tooltip-format": "<tt><small>{calendar}</small></tt>",
+    "calendar": {
+      "mode": "year",
+      "mode-mon-col": 3,
+      "weeks-pos": "right",
+      "on-scroll": 1,
+      "format": {
+        "months": "<span color='#dad9cc'><b>{}</b></span>",
+        "days": "<span color='#dad9cc'>{}</span>",
+        "weeks": "<span color='#46423a'><b>{}</b></span>",
+        "weekdays": "<span color='#ffcc66'><b>{}</b></span>",
+        "today": "<span color='#ff6699'><b><u>{}</u></b></span>"
+      },
+      "smooth-scrolling-threshold": 1
+    }
+  },
+  "bluetooth": {
+    "icon-size": 30,
+    "format": " ",
+    "format-disabled": "󰂳",
+    "format-connected": "󰂱 {num_connections}",
+    "tooltip-format": " {device_alias}",
+    "tooltip-format-connected": "{device_enumerate}",
+    "tooltip-format-enumerate-connected": " {device_alias} 󰂄{device_battery_percentage}%",
+    "tooltip": true,
+    "on-click": "blueman-manager"
+  },
+  "pulseaudio": {
+    "format": "{icon} {volume}%",
+    "format-bluetooth": "{icon} 󰂰 {volume}%",
+    "format-muted": "󰖁",
+    "format-icons": {
+      "headphone": "",
+      "hands-free": "",
+      "headset": "",
+      "phone": "",
+      "portable": "",
+      "car": "",
+      "default": [
+        "",
+        "",
+        "󰕾",
+        ""
+      ],
+      "ignored-sinks": [
+        "Easy Effects Sink"
+      ]
+    },
+    "on-click": "pavucontrol"
+  },
+  "cpu": {
+    "format": "{usage}% 󰍛",
+    "interval": 1,
+    "min-length": 5,
+    "format-alt-click": "click",
+    "format-alt": "{icon0}{icon1}{icon2}{icon3} {usage:>2}% 󰍛",
+    "format-icons": [
+      "▁",
+      "▂",
+      "▃",
+      "▄",
+      "▅",
+      "▆",
+      "▇",
+      "█"
+    ],
+    "on-click-right": "gnome-system-monitor"
+  },
+  "memory": {
+    "interval": 10,
+    "format": "{used:0.1f}G 󰾆",
+    "format-alt": "{percentage}% 󰾆",
+    "format-alt-click": "click",
+    "tooltip": true,
+    "tooltip-format": "{used:0.1f}GB/{total:0.1f}G",
+    "on-click-right": "$HOME/.config/hypr/scripts/WaybarScripts.sh --btop"
+  },
+  "disk": {
+    "interval": 30,
+    "format": "{percentage_used}% 󰋊",
+    "tooltip-format": "{used} used out of {total} on {path} ({percentage_used}%)"
+  },
+  "hyprland/window": {
+    "format": "{}",
+    "max-length": 25,
+    "separate-outputs": true,
+    "offscreen-css": true,
+    "offscreen-css-text": "(inactive)",
+    "rewrite": {
+      "(.*) — Mozilla Firefox": " $1",
+      "(.*) - fish": "> [$1]",
+      "(.*) - zsh": "> [$1]",
+      "(.*) - $term": "> [$1]"
+    }
+  }
+}
