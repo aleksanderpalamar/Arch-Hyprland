@@ -184,12 +184,6 @@ git pull
 4. **Push** para a branch
 5. **Abra** um Pull Request
 
-## � Suporte
-
-- **🐛 Issues**: [GitHub Issues](https://github.com/aleksanderpalamar/Arch-Hyprland/issues)
-- **💬 Discussões**: [GitHub Discussions](https://github.com/aleksanderpalamar/Arch-Hyprland/discussions)
-- **� Contato**: aleksanderpalamar@gmail.com
-
 ## � Licença
 
 Este projeto está sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
@@ -204,37 +198,5 @@ Este projeto está sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhe
 ---
 
 ⭐ **Gostou do projeto? Dê uma estrela para apoiar!**
-
-## 🤝 Como Contribuir com a Documentação
-
-1. **Identificar Necessidades**
-
-   - Revise documentos existentes
-   - Identifique lacunas ou informações desatualizadas
-   - Propose novos tópicos
-
-2. **Seguir Padrões**
-
-   - Use Markdown com formato consistente
-   - Inclua exemplos práticos
-   - Mantenha linguagem clara e objetiva
-
-3. **Processo de Atualização**
-   - Faça fork do repositório
-   - Crie branch específica para documentação
-   - Submeta PR com mudanças
-   - Solicite review de mantenedores
-
-## 📧 Contato
-
-Para dúvidas sobre a documentação ou sugestões de melhoria:
-
-- **Issues**: Use GitHub Issues com label `documentation`
-- **Discussions**: Use GitHub Discussions para perguntas gerais
-- **PR**: Contribuições diretas via Pull Requests
-
-## 📜 Licença
-
-Toda a documentação está sob a mesma licença MIT do projeto.
 
 ---
