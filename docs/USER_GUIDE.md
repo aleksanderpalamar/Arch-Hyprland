@@ -1,517 +1,355 @@
-# 📖 User Guide - Arch-Hyprland
+# 📖 Guia do Usuário - Arch-Hyprland
 
-Guia completo para usar e personalizar o sistema modular Arch-Hyprland.
+Guia prático para usar e personalizar seu ambiente Hyprland.
 
-## 🚀 Introdução
+## 🚀 Primeiros Passos
 
-O Arch-Hyprland é um sistema modular e extensível para configuração do ambiente desktop Hyprland. Ele oferece:
+### Após a Instalação
 
-- **Sistema modular** com componentes independentes
-- **Gerenciamento de temas** centralizado e automatizado
-- **Performance otimizada** com cache inteligente
-- **Backup automático** de configurações
-- **Sistema de plugins** para extensibilidade
-- **Monitoramento em tempo real** de componentes
+1. **Fazer logout** do desktop atual
+2. **Selecionar "Hyprland"** no display manager (GDM/SDDM/LightDM)
+3. **Aguardar o carregamento** - pode demorar alguns segundos na primeira vez
 
-## 📦 Instalação
+### Primeira Inicialização
 
-### Pré-requisitos
+Na primeira vez que entrar no Hyprland:
+
+- **Waybar** (barra superior) carregará automaticamente
+- **Wallpaper** será aplicado
+- **Terminal** pode ser aberto com `Super + Enter`
+
+## ⌨️ Atalhos Essenciais
+
+### Navegação Básica
+
+| Atalho          | Ação                             |
+| --------------- | -------------------------------- |
+| `Super + Enter` | Abrir terminal (Kitty)           |
+| `Super + Q`     | Fechar janela ativa              |
+| `Super + M`     | Sair do Hyprland                 |
+| `Super + R`     | Menu de aplicações (Rofi)        |
+| `Super + E`     | Gerenciador de arquivos (Thunar) |
+
+### Workspaces (Áreas de Trabalho)
+
+| Atalho                  | Ação                        |
+| ----------------------- | --------------------------- |
+| `Super + 1-9`           | Ir para workspace 1-9       |
+| `Super + Shift + 1-9`   | Mover janela para workspace |
+| `Super + Mouse`         | Mover janela arrastando     |
+| `Super + Shift + Mouse` | Redimensionar janela        |
+
+### Sistema
+
+| Atalho           | Ação                  |
+| ---------------- | --------------------- |
+| `Super + W`      | Seletor de wallpapers |
+| `Super + L`      | Bloquear tela         |
+| `Ctrl + Alt + L` | Menu de logout/power  |
+| `Print Screen`   | Captura de tela       |
+
+## 🎨 Personalização
+
+### 🖼️ Wallpapers
+
+#### Método 1: Seletor Visual
 
 ```bash
-# Arch Linux com yay instalado
-sudo pacman -S hyprland waybar rofi kitty hyprpaper
-yay -S wlogout wallust swaync
+Super + W  # Abre o seletor gráfico
+# Clique na imagem desejada
 ```
 
-### Instalação Automática
+#### Método 2: Manual
 
 ```bash
-# Clonar o repositório
-git clone https://github.com/aleksanderpalamar/Arch-Hyprland.git
-cd Arch-Hyprland
+# Adicionar suas imagens à pasta
+cp minha-imagem.jpg ~/Imagens/wallpapers/
 
-# Executar instalação automática
-bash install.sh
+# Aplicar diretamente
+~/.config/hypr/scripts/SelectWallpaper.sh
 ```
 
-O script de instalação irá:
+### 🎨 Temas e Cores
 
-1. Fazer backup das configurações existentes
-2. Instalar as dependências necessárias
-3. Copiar as novas configurações
-4. Configurar o sistema modular
-
-## 🎮 Uso Básico
-
-### Sistema Controller
-
-O System Controller é o ponto central para gerenciar todo o sistema:
+O sistema usa **wallust** para gerar cores automaticamente do wallpaper:
 
 ```bash
-# Inicializar sistema
-./tools/system-controller.sh init
+# Gerar nova paleta de cores
+wallust run ~/Imagens/wallpapers/minha-imagem.jpg
 
-# Iniciar sistema
-./tools/system-controller.sh start
-
-# Ver status
-./tools/system-controller.sh status
-
-# Parar sistema
-./tools/system-controller.sh stop
+# Recarregar waybar com novas cores
+killall waybar && waybar &
 ```
 
-### Atalhos de Teclado Principais
+### ⚙️ Configurações
 
-| Atalho                | Ação                        |
-| --------------------- | --------------------------- |
-| `Super + Return`      | Abrir terminal              |
-| `Super + D`           | Launcher (Rofi)             |
-| `Super + W`           | Seletor de wallpaper        |
-| `Super + L`           | Bloquear tela               |
-| `Super + Shift + Q`   | Fechar janela               |
-| `Super + F`           | Fullscreen                  |
-| `Super + 1-9`         | Trocar workspace            |
-| `Super + Shift + 1-9` | Mover janela para workspace |
+Todas as configurações ficam em `~/.config/hypr/UserConfigs/`:
 
-## 🎨 Gerenciamento de Temas
-
-### Aplicar Tema
+#### Programas Padrão (`MyPrograms.conf`)
 
 ```bash
-# Listar temas disponíveis
-./services/theme-engine.sh discover
+# Editar programas padrão
+nano ~/.config/hypr/UserConfigs/MyPrograms.conf
 
-# Aplicar tema específico
-./services/theme-engine.sh apply_theme nome_do_tema
-
-# Ver tema atual
-./services/theme-engine.sh status
+# Exemplo de mudança:
+$terminal = alacritty  # em vez de kitty
+$browser = firefox     # em vez de microsoft-edge
 ```
 
-### Seleção de Wallpaper
+#### Atalhos de Teclado (`UserKeybinds.conf`)
 
 ```bash
-# Seleção interativa via Rofi
-Super + W
+# Adicionar novos atalhos
+nano ~/.config/hypr/UserConfigs/UserKeybinds.conf
 
-# Ou via script direto
-./hypr/scripts/SelectWallpaper.sh
+# Exemplo:
+bind = $mainMod, T, exec, thunar
+bind = $mainMod, B, exec, firefox
 ```
 
-O sistema automaticamente:
-
-1. Aplica o wallpaper selecionado
-2. Gera esquema de cores com `wallust`
-3. Atualiza Waybar, Rofi e outros componentes
-4. Salva as preferências
-
-### Personalizar Cores
-
-As cores são geradas automaticamente pelo `wallust` baseado no wallpaper, mas você pode personalizar:
+#### Aparência (`UserDecorations.conf`)
 
 ```bash
-# Editar configuração do wallust
-nano ~/.config/wallust/wallust.toml
-
-# Aplicar cores customizadas
-wallust run /caminho/para/wallpaper.jpg
+# Personalizar bordas, sombras, etc.
+nano ~/.config/hypr/UserConfigs/UserDecorations.conf
 ```
 
-## 🔧 Configuração de Componentes
+### 📊 Waybar (Barra Superior)
 
-### Waybar
+#### Configuração Principal
 
 ```bash
-# Configuração principal
+# Editar layout da waybar
 nano ~/.config/waybar/config.jsonc
 
-# Personalizar estilo
+# Editar estilos CSS
 nano ~/.config/waybar/style.css
-
-# Recarregar Waybar
-Super + Ctrl + R
 ```
 
-#### Módulos Disponíveis
-
-A configuração do Waybar é modular com arquivos separados:
-
-- `Modules` - Módulos principais
-- `ModulesCustom` - Módulos customizados
-- `ModulesGroups` - Agrupamentos
-- `ModulesWorkspaces` - Configuração de workspaces
-
-### Rofi
+#### Recarregar Waybar
 
 ```bash
-# Configuração principal
-nano ~/.config/rofi/config.rasi
+# Após fazer alterações
+killall waybar && waybar &
+```
 
-# Temas
-ls ~/.config/rofi/wallust/
+## 🔧 Casos de Uso Práticos
 
+### 📱 Configurar Múltiplos Monitores
+
+```bash
+# Abrir configurador visual
+nwg-displays
+
+# Ou editar manualmente
+nano ~/.config/hypr/monitors.conf
+```
+
+### 🎮 Configurar Jogos
+
+```bash
+# Adicionar regras para jogos
+nano ~/.config/hypr/UserConfigs/WindowRules.conf
+
+# Exemplo para jogos Steam:
+windowrule = fullscreen,^(steam_app_)(.*)$
+windowrule = workspace 10,^(steam_app_)(.*)$
+```
+
+### 💻 Produtividade
+
+#### Auto-iniciar Aplicações
+
+```bash
+# Editar aplicações que iniciam automaticamente
+nano ~/.config/hypr/UserConfigs/Startup_Apps.conf
+
+# Exemplo:
+exec-once = discord
+exec-once = steam
+exec-once = firefox
+```
+
+#### Organizar Workspaces
+
+```bash
+# Definir aplicações para workspaces específicos
+windowrule = workspace 2,^(firefox)$
+windowrule = workspace 3,^(discord)$
+windowrule = workspace 4,^(steam)$
+```
+
+## 🆘 Solução de Problemas
+
+### Hyprland não Inicia
+
+1. **Verificar logs**:
+
+```bash
+# Log principal
+cat ~/.local/share/hyprland/hyprland.log
+
+# Log do sistema
+journalctl -u display-manager
+```
+
+2. **Sintaxe de configuração**:
+
+```bash
 # Testar configuração
-rofi -show drun
+hyprctl reload
 ```
 
-### Hyprland
-
-```bash
-# Configuração principal (não edite diretamente)
-cat ~/.config/hypr/hyprland.conf
-
-# Personalizações vão nos UserConfigs
-nano ~/.config/hypr/UserConfigs/UserKeybinds.conf
-nano ~/.config/hypr/UserConfigs/UserDecorations.conf
-nano ~/.config/hypr/UserConfigs/MyPrograms.conf
-```
-
-## 🔌 Sistema de Plugins
-
-### Descobrir Plugins
-
-```bash
-# Listar plugins disponíveis
-./services/plugin-system.sh list
-
-# Status dos plugins
-./services/plugin-system.sh status
-```
-
-### Instalar Plugin
-
-```bash
-# Carregar plugin
-./services/plugin-system.sh load nome_do_plugin
-
-# Verificar se carregou
-./services/plugin-system.sh status
-```
-
-### Criar Plugin Personalizado
-
-```bash
-# Copiar template
-cp plugins/templates/basic-plugin.sh plugins/user/meu-plugin.sh
-
-# Editar metadata
-nano plugins/user/meu-plugin.sh
-
-# Carregar plugin
-./services/plugin-system.sh load meu-plugin
-```
-
-#### Estrutura de Plugin
-
-```bash
-#!/bin/bash
-
-# Metadata obrigatória
-PLUGIN_NAME="meu-plugin"
-PLUGIN_VERSION="1.0.0"
-PLUGIN_DESCRIPTION="Meu plugin personalizado"
-PLUGIN_AUTHOR="Seu Nome"
-PLUGIN_HOOKS="system.startup,wallpaper.changed"
-
-# Inicialização
-plugin_init() {
-    echo "Plugin inicializado!"
-    return 0
-}
-
-# Hooks
-hook_wallpaper_changed() {
-    local event_data="$1"
-    echo "Wallpaper alterado: $event_data"
-}
-```
-
-## 💾 Sistema de Backup
-
-### Criar Backup
-
-```bash
-# Backup completo automático
-./services/backup-service.sh create_full_backup
-
-# Backup com nome personalizado
-./services/backup-service.sh create_full_backup "antes-da-atualizacao"
-```
-
-### Restaurar Backup
-
-```bash
-# Listar backups disponíveis
-./services/backup-service.sh list_backups
-
-# Restaurar backup específico
-./services/backup-service.sh restore nome_do_backup
-```
-
-### Configuração de Backup
-
-```bash
-# Editar configuração
-nano config/backup.conf
-
-# Opções disponíveis:
-# - BACKUP_RETENTION_DAYS: Dias para manter backups
-# - COMPRESSION_ENABLED: Habilitar compressão
-# - BACKUP_SCHEDULE: Agendamento automático
-```
-
-## 📊 Monitoramento e Performance
-
-### Monitor Service
-
-```bash
-# Status dos componentes
-./services/monitor-service.sh status
-
-# Verificação manual
-./services/monitor-service.sh check
-
-# Relatório detalhado
-./services/monitor-service.sh report
-```
-
-### Performance Optimizer
-
-```bash
-# Status das otimizações
-./services/performance-optimizer.sh status
-
-# Limpeza de cache
-./services/performance-optimizer.sh gc
-
-# Relatório de performance
-./services/performance-optimizer.sh report
-```
-
-### Cache System
-
-O sistema usa cache inteligente para melhor performance:
-
-```bash
-# Ver estatísticas de cache
-./services/performance-optimizer.sh status
-
-# Limpar cache específico
-./services/performance-optimizer.sh cache invalidate cache_key
-
-# Limpar todo o cache
-./services/performance-optimizer.sh cache cleanup
-```
-
-## 🛠️ Troubleshooting
-
-### Problemas Comuns
-
-#### Waybar não aparece
+### Waybar não Aparece
 
 ```bash
 # Verificar se está rodando
 pgrep waybar
 
-# Reiniciar
-killall waybar && waybar &
+# Forçar restart
+killall waybar
+waybar &
 
-# Verificar logs
-journalctl -u waybar
+# Verificar erros
+waybar 2>&1 | grep -i error
 ```
 
-#### Wallpaper não aplica
+### Sem Áudio
+
+```bash
+# Verificar PipeWire
+systemctl --user status pipewire
+
+# Reiniciar áudio
+systemctl --user restart pipewire
+systemctl --user restart wireplumber
+
+# Testar controle de volume
+pamixer --get-volume
+```
+
+### Aplicações não Abrem
+
+```bash
+# Verificar se o programa está instalado
+which nome_do_programa
+
+# Tentar executar pelo terminal para ver erros
+nome_do_programa
+```
+
+### Wallpaper não Muda
 
 ```bash
 # Verificar hyprpaper
 pgrep hyprpaper
 
 # Reiniciar hyprpaper
-pkill hyprpaper && hyprpaper &
+killall hyprpaper
+hyprpaper &
 
-# Verificar configuração
-cat ~/.config/hypr/hyprpaper.conf
+# Aplicar wallpaper manualmente
+hyprctl hyprpaper wallpaper "monitor,/caminho/para/imagem.jpg"
 ```
 
-#### Rofi não abre
+## 🔄 Manutenção
+
+### Backup de Configurações
 
 ```bash
-# Testar configuração
-rofi -show drun -dry-run
-
-# Verificar temas
-ls ~/.config/rofi/wallust/
-
-# Recarregar configuração
-Super + D
+# Backup manual
+cp -r ~/.config/hypr ~/backup-hypr-$(date +%Y%m%d)
+cp -r ~/.config/waybar ~/backup-waybar-$(date +%Y%m%d)
 ```
 
-### Logs do Sistema
+### Atualização do Sistema
 
 ```bash
-# Logs do sistema modular
-tail -f logs/system.log
+# Atualizar repositório
+cd /caminho/para/Arch-Hyprland
+git pull
 
-# Logs de componentes específicos
-tail -f logs/waybar.log
-tail -f logs/wallpaper.log
-
-# Logs de performance
-tail -f logs/performance.log
+# Executar instalação novamente (faz backup automático)
+./install.sh
 ```
 
-### Sistema de Recovery
-
-Se algo der errado, o sistema tem recovery automático:
+### Reset para Padrão
 
 ```bash
-# Restaurar último backup
-./services/backup-service.sh restore latest
+# Se algo der errado, voltar ao backup
+cd ~/.config
+rm -rf hypr waybar rofi
 
-# Usar configuração de emergência
-./tools/system-controller.sh emergency-mode
-
-# Resetar para configuração padrão
-./tools/system-controller.sh factory-reset
-```
-
-## 🧪 Testes
-
-### Executar Testes
-
-```bash
-# Teste completo do sistema
-./tests/integration/integration-test-suite.sh all
-
-# Testes específicos
-./tests/integration/integration-test-suite.sh services
-./tests/integration/integration-test-suite.sh components
-./tests/integration/integration-test-suite.sh e2e
-```
-
-### Validação de Configuração
-
-```bash
-# Validar todas as configurações
-./tools/system-controller.sh validate
-
-# Validar componente específico
-./components/waybar/waybar-component.sh validate
-```
-
-## ⚡ Otimizações Avançadas
-
-### Performance Mode
-
-```bash
-# Habilitar modo performance
-export PERFORMANCE_MODE=true
-
-# Configurar cache agressivo
-echo "CACHE_TTL=600" >> config/performance.conf
-
-# Habilitar carregamento paralelo
-echo "PARALLEL_COMPONENT_LOADING=true" >> config/performance.conf
-```
-
-### Lazy Loading
-
-```bash
-# Configurar componentes críticos
-nano config/performance.conf
-
-# Adicionar à lista de críticos:
-CRITICAL_COMPONENTS=(
-    "hyprland"
-    "waybar"
-    "wallpaper"
-)
-```
-
-### Configurações de Desenvolvimento
-
-```bash
-# Habilitar debug mode
-export LOG_LEVEL=DEBUG
-
-# Habilitar reload automático
-export AUTO_RELOAD=true
-
-# Desabilitar cache para desenvolvimento
-export CACHE_ENABLED=false
+# Reinstalar
+cd /caminho/para/Arch-Hyprland
+./install.sh
 ```
 
 ## 📱 Integração com Aplicações
 
-### Configuração de Aplicações
+### Navegadores Web
 
-O sistema já vem configurado para:
+- **Firefox**: Funciona perfeitamente
+- **Chrome/Chromium**: Adicionar `--enable-features=UseOzonePlatform --ozone-platform=wayland`
+- **Edge**: Configurado automaticamente
 
-- **Terminal**: Kitty com tema automático
-- **Editor**: VSCode/Neovim com cores sincronizadas
-- **Navegador**: Firefox com tema dark/light automático
-- **Notificações**: SwayNC integrado
-- **Screenshots**: grim + slurp configurados
+### Desenvolvimento
 
-### Adicionar Nova Aplicação
+- **VS Code**: Funciona nativamente no Wayland
+- **Terminal**: Kitty (padrão) ou personalize em `MyPrograms.conf`
+- **Git**: Configurado normalmente
+
+### Multimídia
+
+- **OBS Studio**: Suporte nativo à captura Wayland
+- **VLC**: Funciona perfeitamente
+- **Spotify**: Via browser ou Flatpak
+
+### Gaming
+
+- **Steam**: Funciona normalmente
+- **Lutris**: Para jogos não-Steam
+- **GameMode**: Melhora performance automaticamente
+
+## 💡 Dicas Avançadas
+
+### Performance
 
 ```bash
-# Editar configuração de programas
-nano hypr/UserConfigs/MyPrograms.conf
+# Verificar FPS
+hyprctl monitors
 
-# Adicionar atalho
-nano hypr/UserConfigs/UserKeybinds.conf
-
-# Exemplo:
-$meuapp = meu-aplicativo
-bind = $mainMod, X, exec, $meuapp
+# Otimizar para gaming
+# Em ~/.config/hypr/UserConfigs/UserDecorations.conf:
+decoration {
+    blur {
+        enabled = false  # Desabilitar blur para mais FPS
+    }
+}
 ```
 
-## 🔄 Atualizações
-
-### Sistema de Atualizações
+### Automação
 
 ```bash
-# Verificar atualizações
-git pull origin main
+# Criar scripts personalizados em ~/.config/hypr/scripts/
+# Exemplo: ~/.config/hypr/scripts/workspace-organizer.sh
 
-# Executar migração se necessário
-./tools/migrate.sh
-
-# Aplicar novas configurações
-./tools/system-controller.sh restart
+#!/bin/bash
+hyprctl dispatch workspace 1
+firefox &
+sleep 2
+hyprctl dispatch workspace 2
+discord &
 ```
 
-### Backup Antes de Atualizar
+### Temas Dinâmicos
 
 ```bash
-# Sempre fazer backup antes de atualizar
-./services/backup-service.sh create_full_backup "pre-update-$(date +%Y%m%d)"
-```
-
-## 📞 Suporte
-
-### Recursos de Ajuda
-
-- **Documentação completa**: `docs/`
-- **API Reference**: `docs/API.md`
-- **Arquitetura**: `docs/architecture/ARCHITECTURE.md`
-- **Issues**: GitHub Issues
-
-### Comandos de Diagnóstico
-
-```bash
-# Health check completo
-./tools/system-controller.sh health-check
-
-# Informações do sistema
-./tools/system-controller.sh system-info
-
-# Relatório de diagnóstico
-./tools/system-controller.sh generate-report
+# Wallpaper aleatório no boot
+# Em ~/.config/hypr/UserConfigs/Startup_Apps.conf:
+exec-once = ~/.config/hypr/scripts/SelectWallpaper.sh --random
 ```
 
 ---
 
-_Este guia cobre as funcionalidades principais. Para recursos avançados, consulte a documentação técnica em `docs/`._
+🎉 **Agora você domina o Arch-Hyprland!** Para dúvidas, consulte a [documentação técnica](api/API.md) ou abra uma [issue no GitHub](https://github.com/aleksanderpalamar/Arch-Hyprland/issues).

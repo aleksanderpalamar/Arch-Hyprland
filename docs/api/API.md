@@ -1,475 +1,271 @@
 # 📚 API Reference - Arch-Hyprland
 
-Esta documentação descreve as APIs e interfaces dos componentes do sistema modular Arch-Hyprland.
+APIs e interfaces essenciais para desenvolvedores.
 
-## 🏗️ Core APIs
+## 🎯 APIs Principais
 
-### Event System API
+### hyprctl (Hyprland Control)
 
-O Event System fornece comunicação assíncrona entre componentes.
-
-#### Registrar Handler de Evento
+Interface principal para controlar o Hyprland programaticamente.
 
 ```bash
-register_event_handler <event_name> <handler_function>
+# Comandos básicos
+hyprctl reload                    # Recarregar configuração
+hyprctl monitors                  # Listar monitores
+hyprctl workspaces                # Listar workspaces
+hyprctl clients                   # Listar janelas abertas
+
+# Dispatch (executar ações)
+hyprctl dispatch workspace 1      # Ir para workspace 1
+hyprctl dispatch killactive      # Fechar janela ativa
+hyprctl dispatch exec kitty      # Executar aplicação
+
+# Wallpaper
+hyprctl hyprpaper wallpaper "eDP-1,~/wallpaper.jpg"
 ```
 
-**Parâmetros:**
+### Scripts de Sistema
 
-- `event_name`: Nome do evento (ex: "wallpaper.changed")
-- `handler_function`: Função que processará o evento
-
-**Exemplo:**
+#### SelectWallpaper.sh
 
 ```bash
-handle_wallpaper_change() {
-    local event_data="$1"
-    echo "Wallpaper alterado: $event_data"
-}
+# Uso básico
+~/.config/hypr/scripts/SelectWallpaper.sh
 
-register_event_handler "wallpaper.changed" "handle_wallpaper_change"
+# Parâmetros
+~/.config/hypr/scripts/SelectWallpaper.sh --random    # Wallpaper aleatório
+~/.config/hypr/scripts/SelectWallpaper.sh "imagem.jpg" # Wallpaper específico
 ```
 
-#### Emitir Evento
+#### Volume.sh
 
 ```bash
-emit_event <event_name> [event_data]
+# Controle de volume
+~/.config/hypr/scripts/Volume.sh up      # Aumentar volume
+~/.config/hypr/scripts/Volume.sh down    # Diminuir volume
+~/.config/hypr/scripts/Volume.sh mute    # Alternar mute
 ```
 
-**Parâmetros:**
-
-- `event_name`: Nome do evento
-- `event_data`: Dados opcionais do evento (JSON recomendado)
-
-**Exemplo:**
+#### WaybarScripts.sh
 
 ```bash
-emit_event "theme.changed" '{"theme": "dark", "timestamp": "2025-10-24"}'
+# Scripts da waybar
+~/.config/hypr/scripts/WaybarScripts.sh weather    # Clima
+~/.config/hypr/scripts/WaybarScripts.sh updates    # Atualizações
 ```
 
-#### Eventos Padrão do Sistema
+## 🔧 Configuração Programática
 
-| Evento              | Descrição             | Dados                                   |
-| ------------------- | --------------------- | --------------------------------------- |
-| `system.init`       | Sistema inicializando | `{"status": "initializing"}`            |
-| `system.startup`    | Sistema iniciado      | `{"startup_time": "timestamp"}`         |
-| `system.shutdown`   | Sistema desligando    | `{"reason": "user_request"}`            |
-| `component.loaded`  | Componente carregado  | `{"component": "name"}`                 |
-| `component.failed`  | Componente falhou     | `{"component": "name", "error": "msg"}` |
-| `theme.changed`     | Tema alterado         | `{"theme": "name", "colors": {...}}`    |
-| `wallpaper.changed` | Wallpaper alterado    | `{"path": "/path/to/image"}`            |
-| `config.changed`    | Configuração alterada | `{"config": "name", "path": "file"}`    |
-
-### Logger API
-
-Sistema de logging centralizado com níveis configuráveis.
-
-#### Funções de Log
+### Adicionar Atalhos de Teclado
 
 ```bash
-log_debug <message>    # Nível DEBUG
-log_info <message>     # Nível INFO
-log_warn <message>     # Nível WARNING
-log_error <message>    # Nível ERROR
-log_fatal <message>    # Nível FATAL
+# Método 1: Editar arquivo
+echo 'bind = $mainMod, T, exec, thunar' >> ~/.config/hypr/UserConfigs/UserKeybinds.conf
+
+# Método 2: hyprctl (temporário)
+hyprctl keyword bind 'SUPER, T, exec, thunar'
 ```
 
-**Exemplo:**
+### Modificar Decorações
 
 ```bash
-log_info "Componente inicializado com sucesso"
-log_error "Falha ao carregar configuração: arquivo não encontrado"
+# Alterar opacity
+hyprctl keyword decoration:active_opacity 0.9
+
+# Alterar blur
+hyprctl keyword decoration:blur:enabled false
+
+# Alterar bordas
+hyprctl keyword general:border_size 2
+hyprctl keyword general:col.active_border "rgb(ff0000)"
 ```
 
-## 🔧 Services APIs
-
-### Configuration Manager API
-
-Gerencia configurações de forma centralizada com validação.
-
-#### Registrar Configuração
+### Gerenciar Workspaces
 
 ```bash
-config_manager register_config <name> <path> <validator> <component>
+# Criar workspace
+hyprctl dispatch workspace 10
+
+# Mover janela para workspace
+hyprctl dispatch movetoworkspace 5
+
+# Workspace especial (scratchpad)
+hyprctl dispatch togglespecialworkspace
 ```
 
-**Parâmetros:**
+## 🎨 Integração com Temas
 
-- `name`: Nome da configuração
-- `path`: Caminho para o arquivo
-- `validator`: Função de validação
-- `component`: Componente associado
-
-#### Validar Configuração
+### Wallust (Gerador de Cores)
 
 ```bash
-config_manager validate_config <config_name>
+# Gerar paleta de cores
+wallust run /caminho/para/imagem.jpg
+
+# Aplicar cores no waybar
+wallust run /caminho/para/imagem.jpg -f waybar
+
+# Templates personalizados
+wallust run /caminho/para/imagem.jpg -t ~/.config/wallust/templates/
 ```
 
-#### Aplicar Tema
+### Configuração de Cores
 
 ```bash
-config_manager apply_theme <config_name> <theme_name>
+# Variáveis de cor disponíveis (após wallust)
+source ~/.cache/wallust/colors.sh
+
+# Usar em scripts
+echo "Cor primária: $color1"
+echo "Cor de fundo: $background"
 ```
 
-### Theme Engine API
+## 📊 Monitoramento
 
-Sistema centralizado de gerenciamento de temas.
-
-#### Descobrir Temas
+### Status do Sistema
 
 ```bash
-theme_engine discover
+# Verificar status do Hyprland
+pgrep hyprland && echo "Hyprland rodando" || echo "Hyprland parado"
+
+# Verificar waybar
+pgrep waybar && echo "Waybar ativa" || echo "Waybar inativa"
+
+# Verificar recursos
+hyprctl systeminfo    # Informações do sistema
 ```
 
-#### Aplicar Tema
+### Eventos do Hyprland
 
 ```bash
-theme_engine apply_theme <theme_name>
+# Escutar eventos em tempo real
+hyprctl --batch "switchxkblayout;activewindow;workspace" --listen
+
+# Script para reagir a eventos
+socat -U - UNIX-CONNECT:/tmp/hypr/$HYPRLAND_INSTANCE_SIGNATURE/.socket2.sock | while read -r line; do
+    echo "Evento: $line"
+done
 ```
 
-#### Registrar Componente para Temas
+## 🔌 Criar Extensões
+
+### Estrutura Básica
 
 ```bash
-theme_engine register_component <component_name> <theme_function>
-```
+# Criar diretório da extensão
+mkdir -p ~/.config/hypr/extensions/minha-extensao/
 
-### Backup Service API
-
-Sistema de backup com versionamento e compressão.
-
-#### Criar Backup Completo
-
-```bash
-backup_service create_full_backup [backup_name]
-```
-
-#### Restaurar Backup
-
-```bash
-backup_service restore <backup_name>
-```
-
-#### Listar Backups
-
-```bash
-backup_service list_backups
-```
-
-### Monitor Service API
-
-Monitoramento em tempo real de componentes.
-
-#### Registrar Componente para Monitoramento
-
-```bash
-monitor_service register <component_name> [script_path]
-```
-
-#### Verificar Saúde de Todos os Componentes
-
-```bash
-monitor_service check
-```
-
-#### Gerar Relatório
-
-```bash
-monitor_service report
-```
-
-### Plugin System API
-
-Sistema extensível de plugins com descoberta automática.
-
-#### Carregar Plugin
-
-```bash
-plugin_system load <plugin_name>
-```
-
-#### Descarregar Plugin
-
-```bash
-plugin_system unload <plugin_name>
-```
-
-#### Listar Plugins
-
-```bash
-plugin_system list
-```
-
-### Performance Optimizer API
-
-Sistema de otimização com cache e lazy loading.
-
-#### Cache de Componente
-
-```bash
-performance_optimizer cache component <name> <data> [cache_key]
-```
-
-#### Recuperar do Cache
-
-```bash
-performance_optimizer cache get <cache_key>
-```
-
-#### Carregamento Lazy
-
-```bash
-performance_optimizer lazy-load <component_name>
-```
-
-## 🧩 Component Interface
-
-Todos os componentes devem implementar a interface padrão:
-
-### Interface Obrigatória
-
-```bash
-# Inicializar componente
-<component>_init()
-
-# Validar configuração
-<component>_validate()
-
-# Aplicar tema
-<component>_apply_theme <theme_name>
-
-# Limpeza de recursos
-<component>_cleanup()
-
-# Verificação de saúde
-<component>_health_check()
-```
-
-### Exemplo de Implementação
-
-```bash
+# Script principal
+cat > ~/.config/hypr/extensions/minha-extensao/main.sh << 'EOF'
 #!/bin/bash
-# components/example/example-component.sh
+# Sua extensão aqui
+echo "Extensão funcionando!"
+EOF
 
-COMPONENT_NAME="example"
-COMPONENT_VERSION="1.0.0"
-CONFIG_PATH="$HOME/.config/example"
-
-# Inicializar componente
-example_init() {
-    log_info "[ExampleComponent] Inicializando..."
-    mkdir -p "$CONFIG_PATH"
-    # Lógica de inicialização
-    return 0
-}
-
-# Validar configuração
-example_validate() {
-    log_info "[ExampleComponent] Validando configuração..."
-    if [ -f "$CONFIG_PATH/config.conf" ]; then
-        return 0
-    else
-        log_error "[ExampleComponent] Configuração não encontrada"
-        return 1
-    fi
-}
-
-# Aplicar tema
-example_apply_theme() {
-    local theme_name="$1"
-    log_info "[ExampleComponent] Aplicando tema: $theme_name"
-    # Lógica de aplicação de tema
-    return 0
-}
-
-# Limpeza
-example_cleanup() {
-    log_info "[ExampleComponent] Executando limpeza..."
-    # Lógica de limpeza
-    return 0
-}
-
-# Health check
-example_health_check() {
-    if [ -d "$CONFIG_PATH" ] && [ -f "$CONFIG_PATH/config.conf" ]; then
-        echo "healthy"
-        return 0
-    else
-        echo "unhealthy"
-        return 1
-    fi
-}
+# Tornar executável
+chmod +x ~/.config/hypr/extensions/minha-extensao/main.sh
 ```
 
-## 🔌 Plugin Development API
-
-### Plugin Metadata (Obrigatório)
+### Integrar ao Sistema
 
 ```bash
-PLUGIN_NAME="plugin-name"
-PLUGIN_VERSION="1.0.0"
-PLUGIN_DESCRIPTION="Descrição do plugin"
-PLUGIN_AUTHOR="Autor"
-PLUGIN_CATEGORY="categoria"
-PLUGIN_DEPENDENCIES="plugin1,plugin2"
-PLUGIN_HOOKS="system.init,theme.changed"
+# Adicionar ao startup
+echo 'exec-once = ~/.config/hypr/extensions/minha-extensao/main.sh' >> ~/.config/hypr/UserConfigs/Startup_Apps.conf
+
+# Criar atalho
+echo 'bind = $mainMod, X, exec, ~/.config/hypr/extensions/minha-extensao/main.sh' >> ~/.config/hypr/UserConfigs/UserKeybinds.conf
 ```
 
-### Plugin Interface
+### Exemplo: Extensão de Produtividade
 
 ```bash
-# Inicialização do plugin
-plugin_init() {
-    # Lógica de inicialização
-    return 0
-}
+cat > ~/.config/hypr/extensions/workspace-manager/main.sh << 'EOF'
+#!/bin/bash
 
-# Limpeza do plugin
-plugin_cleanup() {
-    # Lógica de limpeza
-    return 0
-}
+case "$1" in
+    "work")
+        hyprctl dispatch workspace 1
+        hyprctl dispatch exec firefox
+        sleep 2
+        hyprctl dispatch workspace 2
+        hyprctl dispatch exec code
+        ;;
+    "media")
+        hyprctl dispatch workspace 3
+        hyprctl dispatch exec spotify
+        hyprctl dispatch exec obs
+        ;;
+    *)
+        echo "Uso: $0 {work|media}"
+        ;;
+esac
+EOF
 
-# Hooks do plugin
-hook_system_init() {
-    local event_data="$1"
-    # Processar evento system.init
-}
-
-hook_theme_changed() {
-    local event_data="$1"
-    # Processar evento theme.changed
-}
+# Usar
+~/.config/hypr/extensions/workspace-manager/main.sh work
 ```
 
-### Plugin Security
+## 🛠️ Debugging
 
-Plugins são validados automaticamente contra:
-
-- Comandos perigosos (`rm -rf /`, `format`, etc.)
-- Acesso a arquivos sensíveis (`/etc/passwd`, `/root/`, etc.)
-- Conexões de rede suspeitas
-
-## 🎯 System Controller API
-
-Controlador principal do sistema modular.
-
-### Comandos Principais
+### Logs e Diagnóstico
 
 ```bash
-# Inicializar sistema
-system_controller init
+# Log do Hyprland
+tail -f ~/.local/share/hyprland/hyprland.log
 
-# Iniciar sistema
-system_controller start
+# Log da waybar
+waybar 2>&1 | grep -i error
 
-# Parar sistema
-system_controller stop
+# Testar configuração
+hyprctl reload && echo "✓ Config OK" || echo "✗ Erro na config"
 
-# Reiniciar sistema
-system_controller restart
-
-# Status do sistema
-system_controller status
-
-# Validar sistema
-system_controller validate
+# Verificar sintaxe dos scripts
+bash -n ~/.config/hypr/scripts/script.sh
 ```
 
-## 📊 Testing APIs
-
-### Integration Test Suite
+### Comandos Úteis para Debug
 
 ```bash
-# Executar todos os testes
-./tests/integration/integration-test-suite.sh all
+# Listar todas as janelas com detalhes
+hyprctl clients -j | jq '.[] | {title, class, workspace}'
 
-# Testes de serviços
-./tests/integration/integration-test-suite.sh services
+# Monitor de performance
+hyprctl monitors | grep -E "(Monitor|fps)"
 
-# Testes de componentes
-./tests/integration/integration-test-suite.sh components
-
-# Testes end-to-end
-./tests/integration/integration-test-suite.sh e2e
+# Verificar binds ativos
+hyprctl binds
 ```
 
-## 🚀 Performance APIs
+## 📞 Integração com Aplicações
 
-### Métricas de Performance
-
-O sistema coleta automaticamente:
-
-- Tempo de carregamento de componentes
-- Taxa de cache hit/miss
-- Uso de memória e CPU
-- Tempo de resposta dos serviços
-
-### Otimizações Disponíveis
-
-- **Cache Inteligente**: Cache automático com TTL configurável
-- **Lazy Loading**: Carregamento sob demanda de componentes
-- **Paralelização**: Carregamento paralelo de componentes independentes
-- **Compressão**: Compressão automática de configurações grandes
-- **Debounce**: Prevenção de mudanças de configuração muito frequentes
-
-## 🔍 Error Handling
-
-### Códigos de Retorno Padrão
-
-| Código | Descrição                   |
-| ------ | --------------------------- |
-| `0`    | Sucesso                     |
-| `1`    | Erro geral                  |
-| `2`    | Erro de validação           |
-| `3`    | Arquivo não encontrado      |
-| `4`    | Permissão negada            |
-| `5`    | Timeout                     |
-| `10`   | Componente não inicializado |
-| `11`   | Dependência não encontrada  |
-
-### Tratamento de Erros
+### Rofi (Menu)
 
 ```bash
-# Exemplo de tratamento de erro
-if ! component_init; then
-    case $? in
-        2) log_error "Erro de validação" ;;
-        3) log_error "Arquivo de configuração não encontrado" ;;
-        *) log_error "Erro desconhecido na inicialização" ;;
-    esac
-    return 1
-fi
+# Usar rofi programaticamente
+rofi -show drun                    # Menu de aplicações
+rofi -show window                  # Seletor de janelas
+rofi -dmenu < lista.txt            # Menu customizado
+
+# Script personalizado com rofi
+opcao=$(echo -e "Opção 1\nOpção 2\nOpção 3" | rofi -dmenu -p "Escolha:")
+echo "Escolhido: $opcao"
 ```
 
-## 📁 File Structure APIs
-
-### Diretórios Padrão
-
-```
-PROJECT_ROOT/
-├── core/                    # APIs fundamentais
-├── services/               # Serviços do sistema
-├── components/             # Componentes modulares
-├── plugins/                # Plugins externos
-├── config/                 # Configurações centralizadas
-├── cache/                  # Cache do sistema
-├── data/                   # Dados persistentes
-├── logs/                   # Logs do sistema
-├── tests/                  # Testes automatizados
-└── docs/                   # Documentação
-```
-
-### Variáveis de Ambiente
+### Waybar (Barra de Status)
 
 ```bash
-PROJECT_ROOT              # Diretório raiz do projeto
-HYPR_CONFIG_DIR          # Diretório de configuração do Hyprland
-CACHE_DIR                # Diretório de cache
-LOG_LEVEL                # Nível de log (DEBUG, INFO, WARN, ERROR)
-PERFORMANCE_MODE         # Modo de performance (true/false)
+# Enviar dados para waybar via JSON
+echo '{"text": "Custom", "class": "active"}' > ~/.cache/waybar-custom.json
+
+# Recarregar waybar
+killall -SIGUSR2 waybar
 ```
+
+## 🔗 Links Úteis
+
+- **[Hyprland Wiki](https://wiki.hyprland.org/)** - Documentação oficial
+- **[Waybar Examples](https://github.com/Alexays/Waybar/wiki/Examples)** - Exemplos de configuração
+- **[Rofi Themes](https://github.com/davatorium/rofi-themes)** - Temas para rofi
 
 ---
 
-_Esta documentação é atualizada automaticamente conforme a evolução da API do sistema._
+💡 **Para uso básico, consulte o [Guia do Usuário](../USER_GUIDE.md)**
