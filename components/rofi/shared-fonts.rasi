@@ -1,0 +1,10 @@
+/*****-- Fonts Size and Font Size -----*****/
+configuration {
+  font: "JetBrainsMono Nerd Font SemiBold 15";
+}
+
+
+/*****-- Elements Font Size -----*****/
+element-text {
+  font: "JetBrainsMono Nerd Font SemiBold 13";
+}
