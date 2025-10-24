@@ -78,19 +78,35 @@ _copy_configs() {
     mkdir -p "$HOME/.config/waybar"
     mkdir -p "$HOME/Imagens/wallpapers"
     
-    # Copia os arquivos da nova estrutura modular
-    cp -r "$SRCDIR/components/hyprland/"*.conf "$HOME/.config/hypr/" 2>/dev/null || true
-    cp -r "$SRCDIR/components/hyprland/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
+    # Copia os arquivos da estrutura core (configurações principais)
+    cp -r "$SRCDIR/core/hypr/"*.conf "$HOME/.config/hypr/" 2>/dev/null || true
+    
+    # Copia UserConfigs (prioriza core, depois components)
+    if [ -d "$SRCDIR/core/hypr/UserConfigs" ]; then
+        cp -r "$SRCDIR/core/hypr/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
+    elif [ -d "$SRCDIR/components/hyprland/UserConfigs" ]; then
+        cp -r "$SRCDIR/components/hyprland/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
+    fi
+    
+    # Copia scripts
+    mkdir -p "$HOME/.config/hypr/scripts"
     cp -r "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
     
+    # Copia configurações do Rofi
     cp -r "$SRCDIR/components/rofi/"*.rasi "$HOME/.config/rofi/" 2>/dev/null || true
-    cp -r "$SRCDIR/components/rofi/wallust" "$HOME/.config/rofi/" 2>/dev/null || true
+    if [ -d "$SRCDIR/components/rofi/wallust" ]; then
+        cp -r "$SRCDIR/components/rofi/wallust" "$HOME/.config/rofi/" 2>/dev/null || true
+    fi
     
-    cp -r "$SRCDIR/components/waybar/config.jsonc" "$HOME/.config/waybar/" 2>/dev/null || true
-    cp -r "$SRCDIR/components/waybar/style.css" "$HOME/.config/waybar/" 2>/dev/null || true
-    cp -r "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
+    # Copia configurações do Waybar 
+    cp "$SRCDIR/components/waybar/config.jsonc" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp "$SRCDIR/components/waybar/style.css" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
     
-    cp -r "$SRCDIR/components/wallpaper/"*.{jpg,jpeg,png} "$HOME/Imagens/wallpapers/" 2>/dev/null || true
+    # Copia wallpapers
+    for ext in jpg jpeg png; do
+        cp "$SRCDIR/components/wallpaper/"*.$ext "$HOME/Imagens/wallpapers/" 2>/dev/null || true
+    done
 }
 
 # Função para definir permissões de execução para os scripts
