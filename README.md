@@ -1,529 +1,250 @@
-# Dotfiles para Arch-Hyprland
+# 📚 Documentação - Arch-Hyprland
 
-Uma coleção de arquivos de configuração (dotfiles) para criar um ambiente de desktop Arch Linux minimalista, moderno e funcional com o compositor Wayland Hyprland.
+Documentação completa para instalação, uso e personalização do ambiente Hyprland.
 
-Este repositório contém um script de instalação automatizado para configurar rapidamente o ambiente, incluindo Hyprland, Waybar, Rofi, Kitty e outras ferramentas essenciais.
+## 🚀 Começando
 
-## 🎨 Visual
-
-![Arch-Hyprland Desktop](./.github/screenshot_dark.png)
-
-![placeholder](https://img.shields.io/badge/Desktop-Screenshot_here-blue?style=for-the-badge&logo=none)
-
-# 📖 User Guide - Arch-Hyprland
-
-Guia completo para usar e personalizar o sistema modular Arch-Hyprland.
-
-## 🚀 Introdução
-
-O Arch-Hyprland é um sistema modular e extensível para configuração do ambiente desktop Hyprland. Ele oferece:
-
-- **Sistema modular** com componentes independentes
-- **Gerenciamento de temas** centralizado e automatizado
-- **Performance otimizada** com cache inteligente
-- **Backup automático** de configurações
-- **Sistema de plugins** para extensibilidade
-- **Monitoramento em tempo real** de componentes
-
-## 📦 Instalação
-
-### Pré-requisitos
+### Instalação Rápida
 
 ```bash
-# Arch Linux com yay instalado
-sudo pacman -S hyprland waybar rofi kitty hyprpaper
-yay -S wlogout wallust swaync
-```
-
-### Instalação Automática
-
-```bash
-# Clonar o repositório
+# Clone o repositório
 git clone https://github.com/aleksanderpalamar/Arch-Hyprland.git
 cd Arch-Hyprland
 
-# Executar instalação automática
-bash install.sh
+# Execute a instalação
+./install.sh
 ```
 
-O script de instalação irá:
+### Primeiro Uso
 
-1. Fazer backup das configurações existentes
-2. Instalar as dependências necessárias
-3. Copiar as novas configurações
-4. Configurar o sistema modular
+Após a instalação:
 
-## 🎮 Uso Básico
+1. **Faça logout** do desktop atual
+2. **Selecione "Hyprland"** no display manager
+3. **Use Super + Enter** para abrir o terminal
 
-### Sistema Controller
+## 📖 Guias Principais
 
-O System Controller é o ponto central para gerenciar todo o sistema:
+### Para Usuários
 
-```bash
-# Inicializar sistema
-./tools/system-controller.sh init
+- **[📖 Guia do Usuário](USER_GUIDE.md)** - Como usar e personalizar o sistema
+  - Atalhos de teclado essenciais
+  - Como personalizar wallpapers e temas
+  - Configuração de monitores
+  - Solução de problemas comuns
 
-# Iniciar sistema
-./tools/system-controller.sh start
+### Para Desenvolvedores
 
-# Ver status
-./tools/system-controller.sh status
+- **[🏗️ Arquitetura](architecture/ARCHITECTURE.md)** - Como o sistema funciona internamente
+- **[📋 API Reference](api/API.md)** - APIs para criar componentes e plugins
 
-# Parar sistema
-./tools/system-controller.sh stop
-```
+## 🎯 Casos de Uso Comuns
 
-### Atalhos de Teclado Principais
+### 🖼️ Personalização Visual
+
+- **Alterar Wallpaper**: `Super + W` → Selecionar nova imagem
+- **Trocar Tema**: Modifique arquivos em `~/.config/hypr/UserConfigs/`
+- **Configurar Waybar**: Edite `~/.config/waybar/config.jsonc`
+
+### ⌨️ Atalhos Essenciais
 
 | Atalho                | Ação                        |
 | --------------------- | --------------------------- |
-| `Super + Return`      | Abrir terminal              |
-| `Super + D`           | Launcher (Rofi)             |
-| `Super + W`           | Seletor de wallpaper        |
-| `Super + L`           | Bloquear tela               |
-| `Super + Shift + Q`   | Fechar janela               |
-| `Super + F`           | Fullscreen                  |
+| `Super + Enter`       | Terminal                    |
+| `Super + Q`           | Fechar janela               |
+| `Super + R`           | Menu de aplicações          |
+| `Super + W`           | Seletor de wallpapers       |
 | `Super + 1-9`         | Trocar workspace            |
 | `Super + Shift + 1-9` | Mover janela para workspace |
 
-## 🎨 Gerenciamento de Temas
-
-### Aplicar Tema
+### 🔧 Configurações Rápidas
 
 ```bash
-# Listar temas disponíveis
-./services/theme-engine.sh discover
-
-# Aplicar tema específico
-./services/theme-engine.sh apply_theme nome_do_tema
-
-# Ver tema atual
-./services/theme-engine.sh status
-```
-
-### Seleção de Wallpaper
-
-```bash
-# Seleção interativa via Rofi
-Super + W
-
-# Ou via script direto
-./hypr/scripts/SelectWallpaper.sh
-```
-
-O sistema automaticamente:
-
-1. Aplica o wallpaper selecionado
-2. Gera esquema de cores com `wallust`
-3. Atualiza Waybar, Rofi e outros componentes
-4. Salva as preferências
-
-### Personalizar Cores
-
-As cores são geradas automaticamente pelo `wallust` baseado no wallpaper, mas você pode personalizar:
-
-```bash
-# Editar configuração do wallust
-nano ~/.config/wallust/wallust.toml
-
-# Aplicar cores customizadas
-wallust run /caminho/para/wallpaper.jpg
-```
-
-## 🔧 Configuração de Componentes
-
-### Waybar
-
-```bash
-# Configuração principal
-nano ~/.config/waybar/config.jsonc
-
-# Personalizar estilo
-nano ~/.config/waybar/style.css
+# Recarregar configuração do Hyprland
+hyprctl reload
 
 # Recarregar Waybar
-Super + Ctrl + R
-```
-
-#### Módulos Disponíveis
-
-A configuração do Waybar é modular com arquivos separados:
-
-- `Modules` - Módulos principais
-- `ModulesCustom` - Módulos customizados
-- `ModulesGroups` - Agrupamentos
-- `ModulesWorkspaces` - Configuração de workspaces
-
-### Rofi
-
-```bash
-# Configuração principal
-nano ~/.config/rofi/config.rasi
-
-# Temas
-ls ~/.config/rofi/wallust/
-
-# Testar configuração
-rofi -show drun
-```
-
-### Hyprland
-
-```bash
-# Configuração principal (não edite diretamente)
-cat ~/.config/hypr/hyprland.conf
-
-# Personalizações vão nos UserConfigs
-nano ~/.config/hypr/UserConfigs/UserKeybinds.conf
-nano ~/.config/hypr/UserConfigs/UserDecorations.conf
-nano ~/.config/hypr/UserConfigs/MyPrograms.conf
-```
-
-## 🔌 Sistema de Plugins
-
-### Descobrir Plugins
-
-```bash
-# Listar plugins disponíveis
-./services/plugin-system.sh list
-
-# Status dos plugins
-./services/plugin-system.sh status
-```
-
-### Instalar Plugin
-
-```bash
-# Carregar plugin
-./services/plugin-system.sh load nome_do_plugin
-
-# Verificar se carregou
-./services/plugin-system.sh status
-```
-
-### Criar Plugin Personalizado
-
-```bash
-# Copiar template
-cp plugins/templates/basic-plugin.sh plugins/user/meu-plugin.sh
-
-# Editar metadata
-nano plugins/user/meu-plugin.sh
-
-# Carregar plugin
-./services/plugin-system.sh load meu-plugin
-```
-
-#### Estrutura de Plugin
-
-```bash
-#!/bin/bash
-
-# Metadata obrigatória
-PLUGIN_NAME="meu-plugin"
-PLUGIN_VERSION="1.0.0"
-PLUGIN_DESCRIPTION="Meu plugin personalizado"
-PLUGIN_AUTHOR="Seu Nome"
-PLUGIN_HOOKS="system.startup,wallpaper.changed"
-
-# Inicialização
-plugin_init() {
-    echo "Plugin inicializado!"
-    return 0
-}
-
-# Hooks
-hook_wallpaper_changed() {
-    local event_data="$1"
-    echo "Wallpaper alterado: $event_data"
-}
-```
-
-## 💾 Sistema de Backup
-
-### Criar Backup
-
-```bash
-# Backup completo automático
-./services/backup-service.sh create_full_backup
-
-# Backup com nome personalizado
-./services/backup-service.sh create_full_backup "antes-da-atualizacao"
-```
-
-### Restaurar Backup
-
-```bash
-# Listar backups disponíveis
-./services/backup-service.sh list_backups
-
-# Restaurar backup específico
-./services/backup-service.sh restore nome_do_backup
-```
-
-### Configuração de Backup
-
-```bash
-# Editar configuração
-nano config/backup.conf
-
-# Opções disponíveis:
-# - BACKUP_RETENTION_DAYS: Dias para manter backups
-# - COMPRESSION_ENABLED: Habilitar compressão
-# - BACKUP_SCHEDULE: Agendamento automático
-```
-
-## 📊 Monitoramento e Performance
-
-### Monitor Service
-
-```bash
-# Status dos componentes
-./services/monitor-service.sh status
-
-# Verificação manual
-./services/monitor-service.sh check
-
-# Relatório detalhado
-./services/monitor-service.sh report
-```
-
-### Performance Optimizer
-
-```bash
-# Status das otimizações
-./services/performance-optimizer.sh status
-
-# Limpeza de cache
-./services/performance-optimizer.sh gc
-
-# Relatório de performance
-./services/performance-optimizer.sh report
-```
-
-### Cache System
-
-O sistema usa cache inteligente para melhor performance:
-
-```bash
-# Ver estatísticas de cache
-./services/performance-optimizer.sh status
-
-# Limpar cache específico
-./services/performance-optimizer.sh cache invalidate cache_key
-
-# Limpar todo o cache
-./services/performance-optimizer.sh cache cleanup
-```
-
-## 🛠️ Troubleshooting
-
-### Problemas Comuns
-
-#### Waybar não aparece
-
-```bash
-# Verificar se está rodando
-pgrep waybar
-
-# Reiniciar
 killall waybar && waybar &
 
+# Aplicar novo wallpaper
+~/.config/hypr/scripts/SelectWallpaper.sh
+```
+
+## 🆘 Problemas Comuns
+
+### Hyprland não inicia
+
+```bash
 # Verificar logs
-journalctl -u waybar
+journalctl -u display-manager
+# ou
+~/.local/share/hyprland/hyprland.log
 ```
 
-#### Wallpaper não aplica
+### Waybar não aparece
 
 ```bash
-# Verificar hyprpaper
-pgrep hyprpaper
-
-# Reiniciar hyprpaper
-pkill hyprpaper && hyprpaper &
-
-# Verificar configuração
-cat ~/.config/hypr/hyprpaper.conf
+# Restartar waybar
+killall waybar
+waybar &
 ```
 
-#### Rofi não abre
+### Sem áudio
 
 ```bash
-# Testar configuração
-rofi -show drun -dry-run
-
-# Verificar temas
-ls ~/.config/rofi/wallust/
-
-# Recarregar configuração
-Super + D
+# Verificar PipeWire
+systemctl --user status pipewire
+systemctl --user restart pipewire
 ```
 
-### Logs do Sistema
+## 📁 Estrutura de Arquivos
 
-```bash
-# Logs do sistema modular
-tail -f logs/system.log
-
-# Logs de componentes específicos
-tail -f logs/waybar.log
-tail -f logs/wallpaper.log
-
-# Logs de performance
-tail -f logs/performance.log
 ```
+~/.config/hypr/          # Configurações principais
+├── hyprland.conf        # Configuração principal
+├── UserConfigs/         # Suas personalizações
+├── scripts/             # Scripts de automação
+└── ...
 
-### Sistema de Recovery
-
-Se algo der errado, o sistema tem recovery automático:
-
-```bash
-# Restaurar último backup
-./services/backup-service.sh restore latest
-
-# Usar configuração de emergência
-./tools/system-controller.sh emergency-mode
-
-# Resetar para configuração padrão
-./tools/system-controller.sh factory-reset
-```
-
-## 🧪 Testes
-
-### Executar Testes
-
-```bash
-# Teste completo do sistema
-./tests/integration/integration-test-suite.sh all
-
-# Testes específicos
-./tests/integration/integration-test-suite.sh services
-./tests/integration/integration-test-suite.sh components
-./tests/integration/integration-test-suite.sh e2e
-```
-
-### Validação de Configuração
-
-```bash
-# Validar todas as configurações
-./tools/system-controller.sh validate
-
-# Validar componente específico
-./components/waybar/waybar-component.sh validate
-```
-
-## ⚡ Otimizações Avançadas
-
-### Performance Mode
-
-```bash
-# Habilitar modo performance
-export PERFORMANCE_MODE=true
-
-# Configurar cache agressivo
-echo "CACHE_TTL=600" >> config/performance.conf
-
-# Habilitar carregamento paralelo
-echo "PARALLEL_COMPONENT_LOADING=true" >> config/performance.conf
-```
-
-### Lazy Loading
-
-```bash
-# Configurar componentes críticos
-nano config/performance.conf
-
-# Adicionar à lista de críticos:
-CRITICAL_COMPONENTS=(
-    "hyprland"
-    "waybar"
-    "wallpaper"
-)
-```
-
-### Configurações de Desenvolvimento
-
-```bash
-# Habilitar debug mode
-export LOG_LEVEL=DEBUG
-
-# Habilitar reload automático
-export AUTO_RELOAD=true
-
-# Desabilitar cache para desenvolvimento
-export CACHE_ENABLED=false
-```
-
-## 📱 Integração com Aplicações
-
-### Configuração de Aplicações
-
-O sistema já vem configurado para:
-
-- **Terminal**: Kitty com tema automático
-- **Editor**: VSCode/Neovim com cores sincronizadas
-- **Navegador**: Firefox com tema dark/light automático
-- **Notificações**: SwayNC integrado
-- **Screenshots**: grim + slurp configurados
-
-### Adicionar Nova Aplicação
-
-```bash
-# Editar configuração de programas
-nano hypr/UserConfigs/MyPrograms.conf
-
-# Adicionar atalho
-nano hypr/UserConfigs/UserKeybinds.conf
-
-# Exemplo:
-$meuapp = meu-aplicativo
-bind = $mainMod, X, exec, $meuapp
+~/.config/waybar/        # Barra superior
+~/.config/rofi/          # Menu de aplicações
+~/Imagens/wallpapers/    # Seus wallpapers
 ```
 
 ## 🔄 Atualizações
 
-### Sistema de Atualizações
-
 ```bash
-# Verificar atualizações
-git pull origin main
-
-# Executar migração se necessário
-./tools/migrate.sh
-
-# Aplicar novas configurações
-./tools/system-controller.sh restart
-```
-
-### Backup Antes de Atualizar
-
-```bash
-# Sempre fazer backup antes de atualizar
-./services/backup-service.sh create_full_backup "pre-update-$(date +%Y%m%d)"
+# Atualizar o sistema
+cd /path/to/Arch-Hyprland
+git pull
+./install.sh
 ```
 
 ## 📞 Suporte
 
-### Recursos de Ajuda
-
-- **Documentação completa**: `docs/`
-- **API Reference**: `docs/API.md`
-- **Arquitetura**: `docs/architecture/ARCHITECTURE.md`
-- **Issues**: GitHub Issues
-
-### Comandos de Diagnóstico
-
-```bash
-# Health check completo
-./tools/system-controller.sh health-check
-
-# Informações do sistema
-./tools/system-controller.sh system-info
-
-# Relatório de diagnóstico
-./tools/system-controller.sh generate-report
-```
+- **Issues**: [GitHub Issues](https://github.com/aleksanderpalamar/Arch-Hyprland/issues)
+- **Documentação**: Consulte os guias nesta pasta
+- **Logs**: Sempre inclua logs ao reportar problemas
 
 ---
 
-_Este guia cobre as funcionalidades principais. Para recursos avançados, consulte a documentação técnica em `docs/`._
+💡 **Dica**: Comece pelo [Guia do Usuário](USER_GUIDE.md) para aprender a usar o sistema completo!
+
+- **[PERFORMANCE.md](./PERFORMANCE.md)** - Otimizações de performance e benchmarks
+
+### 🧪 Testes
+
+- **[TESTING.md](./TESTING.md)** - Estratégia de testes e implementação de suites de teste
+
+### 🎨 Design e UX
+
+- **[DESIGN.md](./DESIGN.md)** - Guia de design e padrões visuais
+- **[USER_EXPERIENCE.md](./USER_EXPERIENCE.md)** - Melhorias de experiência do usuário
+
+### 🔧 Desenvolvimento
+
+- **[CONTRIBUTING.md](./CONTRIBUTING.md)** - Guia para contribuidores
+- **[API.md](./API.md)** - Documentação da API interna
+- **[DEBUGGING.md](./DEBUGGING.md)** - Guias de debugging e troubleshooting
+
+### 📦 Deploy e Manutenção
+
+- **[DEPLOYMENT.md](./DEPLOYMENT.md)** - Processos de deploy e release
+- **[MAINTENANCE.md](./MAINTENANCE.md)** - Guias de manutenção e monitoramento
+
+## 🗺️ Navegação Rápida
+
+### Para Desenvolvedores
+
+1. Comece com [ARCHITECTURE.md](./ARCHITECTURE.md) para entender a estrutura
+2. Leia [CONTRIBUTING.md](./CONTRIBUTING.md) para padrões de desenvolvimento
+3. Configure testes seguindo [TESTING.md](./TESTING.md)
+4. Consulte [API.md](./API.md) para APIs internas
+
+### Para Mantenedores
+
+1. Revise [SECURITY.md](./SECURITY.md) para aspectos de segurança
+2. Implemente melhorias de [IMPROVEMENTS.md](./IMPROVEMENTS.md)
+3. Use [PERFORMANCE.md](./PERFORMANCE.md) para otimizações
+4. Siga [DEPLOYMENT.md](./DEPLOYMENT.md) para releases
+
+### Para Usuários Avançados
+
+1. Consulte [USER_EXPERIENCE.md](./USER_EXPERIENCE.md) para customizações
+2. Use [DEBUGGING.md](./DEBUGGING.md) para resolução de problemas
+3. Veja [DESIGN.md](./DESIGN.md) para personalização visual
+
+## 📊 Estado da Documentação
+
+| Documento          | Status          | Última Atualização | Prioridade |
+| ------------------ | --------------- | ------------------ | ---------- |
+| IMPROVEMENTS.md    | ✅ Completo     | 2025-01-24         | Alta       |
+| SECURITY.md        | ✅ Completo     | 2025-01-24         | Alta       |
+| ARCHITECTURE.md    | ✅ Completo     | 2025-01-24         | Alta       |
+| PERFORMANCE.md     | ✅ Completo     | 2025-01-24         | Alta       |
+| TESTING.md         | ✅ Completo     | 2025-01-24         | Alta       |
+| DESIGN.md          | 🔄 Em Progresso | -                  | Média      |
+| USER_EXPERIENCE.md | 🔄 Em Progresso | -                  | Média      |
+| CONTRIBUTING.md    | 📝 Planejado    | -                  | Média      |
+| API.md             | 📝 Planejado    | -                  | Baixa      |
+| DEBUGGING.md       | 📝 Planejado    | -                  | Baixa      |
+| DEPLOYMENT.md      | 📝 Planejado    | -                  | Baixa      |
+| MAINTENANCE.md     | 📝 Planejado    | -                  | Baixa      |
+
+## 🎯 Próximos Passos
+
+### Fase Atual: Fundação (Completa)
+
+- [x] Análise de melhorias
+- [x] Documentação de segurança
+- [x] Arquitetura proposta
+- [x] Otimizações de performance
+- [x] Estratégia de testes
+
+### Próxima Fase: UX e Design
+
+- [ ] Guia de design system
+- [ ] Documentação de experiência do usuário
+- [ ] Padrões de interface
+
+### Fase Futura: Desenvolvimento
+
+- [ ] Guia de contribuição
+- [ ] Documentação de APIs
+- [ ] Processos de deploy
+
+## 🤝 Como Contribuir com a Documentação
+
+1. **Identificar Necessidades**
+
+   - Revise documentos existentes
+   - Identifique lacunas ou informações desatualizadas
+   - Propose novos tópicos
+
+2. **Seguir Padrões**
+
+   - Use Markdown com formato consistente
+   - Inclua exemplos práticos
+   - Mantenha linguagem clara e objetiva
+
+3. **Processo de Atualização**
+   - Faça fork do repositório
+   - Crie branch específica para documentação
+   - Submeta PR com mudanças
+   - Solicite review de mantenedores
+
+## 📧 Contato
+
+Para dúvidas sobre a documentação ou sugestões de melhoria:
+
+- **Issues**: Use GitHub Issues com label `documentation`
+- **Discussions**: Use GitHub Discussions para perguntas gerais
+- **PR**: Contribuições diretas via Pull Requests
+
+## 📜 Licença
+
+Toda a documentação está sob a mesma licença MIT do projeto.
+
+---
+
+_Esta documentação é um documento vivo e será atualizada continuamente conforme o projeto evolui._
