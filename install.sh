@@ -65,6 +65,7 @@ _backup_configs() {
     [ -d "$HOME/.config/hypr" ] && mv "$HOME/.config/hypr" "$BACKUP_DIR/"
     [ -d "$HOME/.config/rofi" ] && mv "$HOME/.config/rofi" "$BACKUP_DIR/"
     [ -d "$HOME/.config/waybar" ] && mv "$HOME/.config/waybar" "$BACKUP_DIR/"
+    [ -d "$HOME/.config/swaync" ] && mv "$HOME/.config/swaync" "$BACKUP_DIR/"
 }
 
 # Função para copiar as novas configurações
@@ -102,6 +103,11 @@ _copy_configs() {
     cp "$SRCDIR/components/waybar/config.jsonc" "$HOME/.config/waybar/" 2>/dev/null || true
     cp "$SRCDIR/components/waybar/style.css" "$HOME/.config/waybar/" 2>/dev/null || true
     cp "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
+    
+    # Copia configurações do SwayNC
+    mkdir -p "$HOME/.config/swaync"
+    cp "$SRCDIR/components/swaync/config.json" "$HOME/.config/swaync/" 2>/dev/null || true
+    cp "$SRCDIR/components/swaync/style.css" "$HOME/.config/swaync/" 2>/dev/null || true
     
     # Copia wallpapers
     for ext in jpg jpeg png; do
