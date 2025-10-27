@@ -8,7 +8,8 @@
 }
 
 window#waybar {
-  background-color: rgba(30, 30, 46, 0.8); /*rgba(30, 30, 46, 0.8)*/
+  background: rgba(40, 30, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
   color: #ffffff;
   transition-property: background-color;
   transition-duration: 0.5s;
@@ -20,12 +21,20 @@ window#waybar.hidden {
 }
 
 tooltip {
-  background: #1e1e2e;
-  opacity: 0.6;
-  border-radius: 10px;
-  border-width: 2px;
-  border-style: solid;
-  border-color: #11111b;
+  background-color: rgba(40, 30, 46, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin: 10px;
+}
+
+/* Calendário - tooltip do clock */
+#clock tooltip {
+  background-color: rgba(40, 30, 46, 0.9);
+  border-radius: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 10px;
+  margin: 10px;
 }
 
 #taskbar button,
@@ -145,6 +154,18 @@ tooltip {
   to {
     background-color: #ffffff;
     color: #333333;
+  }
+}
+
+@keyframes gradient_f {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
   }
 }
 

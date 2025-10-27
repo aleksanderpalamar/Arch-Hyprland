@@ -16,6 +16,7 @@
   "margin-top": 3,
   "margin-left": 8,
   "margin-right": 8,
+  "gtk-layer-shell": true,
   "modules-left": [
     "hyprland/workspaces#numbers",
     "custom/separator#line"
