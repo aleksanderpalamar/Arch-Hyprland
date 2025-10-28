@@ -55,6 +55,27 @@ _install_aur_packages() {
     $AUR_HELPER -S --noconfirm --needed "${aur_pkgs[@]}"
 }
 
+# Verificação e instalação de pacotes extras (opcional)
+_check_install_extra() {
+    read -p "Deseja instalar pacotes extras (git, fastfetch, htop, wget, curl)? (s/n): " Choice
+    case "$Choice" in
+        [Ss]* ) _install_extra_packages ;;
+        * ) _print "Pulando instalação de pacotes extras." ;;
+    esac
+}
+
+# Função para instalar pacotes extras
+_install_extra_packages() {
+    _print "Instalando pacotes extras..."
+    
+    local extra_pkgs=(
+        git fastfetch htop wget curl
+    )
+    
+    sudo pacman -S --noconfirm --needed "${extra_pkgs[@]}"
+}
+
+
 # Função para fazer backup das configurações existentes
 _backup_configs() {
     _print "Fazendo backup das configurações existentes..."
