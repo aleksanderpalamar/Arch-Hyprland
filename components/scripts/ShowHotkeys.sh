@@ -7,6 +7,57 @@ if pidof rofi > /dev/null; then
     pkill rofi
 fi
 
+# Function to get friendly description
+get_friendly_description() {
+    local action="$1"
+    local command="$2"
+    local key="$3"
+    local mod="$4"
+    
+    # Application launchers
+    [[ "$command" == *"terminal"* || "$command" == *"kitty"* ]] && echo "🖥️  Abrir terminal" && return
+    [[ "$command" == *"fileManager"* || "$command" == *"thunar"* || "$command" == *"nautilus"* || "$command" == *"dolphin"* ]] && echo "📁 Abrir gerenciador de arquivos" && return
+    [[ "$command" == *"rofi -show drun"* || "$command" == *"rofi"*"drun"* ]] && echo "🚀 Abrir menu" && return
+    [[ "$command" == *"msedge"* || "$command" == *"browser"* ]] && echo "🌐 Abrir navegador" && return
+    [[ "$command" == *"warpterminal"* ]] && echo "⚡ Abrir Warp Terminal" && return
+    
+    # Window management
+    [[ "$action" == "killactive" ]] && echo "❌ Fechar janela atual" && return
+    [[ "$action" == "exit" ]] && echo "🚪 Sair do Hyprland" && return
+    [[ "$action" == "togglefloating" ]] && echo "🪟  Alternar modo flutuante" && return
+    [[ "$action" == "pseudo" ]] && echo "🔲 Modo pseudo (dwindle)" && return
+    [[ "$action" == "togglesplit" ]] && echo "⚡ Alternar divisão (dwindle)" && return
+    
+    # Focus movement
+    [[ "$action" == "movefocus" && "$command" == "l" ]] && echo "⬅️  Mover foco para esquerda" && return
+    [[ "$action" == "movefocus" && "$command" == "r" ]] && echo "➡️  Mover foco para direita" && return
+    [[ "$action" == "movefocus" && "$command" == "u" ]] && echo "⬆️  Mover foco para cima" && return
+    [[ "$action" == "movefocus" && "$command" == "d" ]] && echo "⬇️  Mover foco para baixo" && return
+    
+    # Workspaces
+    [[ "$action" == "workspace" && "$command" =~ ^[0-9]+$ ]] && echo "🔢 Ir para workspace $command" && return
+    [[ "$action" == "workspace" && "$command" == "e+1" ]] && echo "➕ Próximo workspace" && return
+    [[ "$action" == "workspace" && "$command" == "e-1" ]] && echo "➖ Workspace anterior" && return
+    [[ "$action" == "movetoworkspace" && "$command" =~ ^[0-9]+$ ]] && echo "📤 Mover janela para workspace $command" && return
+    [[ "$action" == "togglespecialworkspace" ]] && echo "✨ Alternar workspace especial" && return
+    [[ "$action" == "movetoworkspace" && "$command" == *"special"* ]] && echo "📥 Mover para workspace especial" && return
+    
+    # Scripts
+    [[ "$command" == *"waybar"* ]] && echo "🎨 Reiniciar Waybar" && return
+    [[ "$command" == *"grim"* ]] && echo "📸 Capturar screenshot" && return
+    [[ "$command" == *"SelectWallpaper"* ]] && echo "🖼️  Selecionar papel de parede" && return
+    [[ "$command" == *"Wlogout"* ]] && echo "🔌 Menu de logout" && return
+    [[ "$command" == *"LockScreen"* ]] && echo "🔒 Bloquear tela" && return
+    [[ "$command" == *"ShowHotkeys"* ]] && echo "⌨️  Mostrar atalhos de teclado" && return
+    
+    # Mouse actions
+    [[ "$action" == "movewindow" ]] && echo "🖱️  Mover janela com mouse" && return
+    [[ "$action" == "resizewindow" ]] && echo "↔️  Redimensionar janela com mouse" && return
+    
+    # Default fallback
+    echo "⚙️  $action $command"
+}
+
 # Function to parse keybinds
 parse_keybinds() {
     local config_file="$1"
@@ -29,17 +80,25 @@ parse_keybinds() {
         action=$(echo "$action" | xargs)
         command=$(echo "$command" | xargs)
         
+        # Skip empty key bindings
+        [[ -z "$key" ]] && continue
+        
         # Format the key combination
         if [[ "$mod" == "$main_mod" ]]; then
-            keybind="$main_mod + $key"
+            keybind="SUPER + $key"
+        elif [[ -z "$mod" ]]; then
+            keybind="$key"
         else
             keybind="$mod + $key"
         fi
         
-        # Output for rofi
-        echo "$keybind: $action $command"
+        # Get friendly description
+        description=$(get_friendly_description "$action" "$command" "$key" "$mod")
+        
+        # Output for rofi (aligned format)
+        printf "%-30s │ %s\n" "$keybind" "$description"
     done
 }
 
 # Generate the list and show with rofi
-parse_keybinds "$CONFIG_FILE" | rofi -dmenu -i -p "Hyprland Keybinds"
+parse_keybinds "$CONFIG_FILE" | rofi -dmenu -i -p "⌨️  Atalhos do Hyprland" -theme-str 'window {width: 900px;}'
