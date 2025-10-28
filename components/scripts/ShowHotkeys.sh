@@ -51,11 +51,9 @@ get_friendly_description() {
     [[ "$command" == *"ShowHotkeys"* ]] && echo "⌨️  Mostrar atalhos de teclado" && return
     
     # Mouse actions
-    [[ "$action" == "movewindow" ]] && echo "🖱️  Mover janela com mouse" && return
-    [[ "$action" == "resizewindow" ]] && echo "↔️  Redimensionar janela com mouse" && return
-    
-    # Default fallback
-    echo "⚙️  $action $command"
+    [[ "$action" == "movewindow" ]] && echo "🖱️  Mover janela com mouse" && return 0
+    [[ "$action" == "resizewindow" ]] && echo "↔️  Redimensionar janela com mouse" && return 0
+
 }
 
 # Function to parse keybinds
@@ -94,6 +92,9 @@ parse_keybinds() {
         
         # Get friendly description
         description=$(get_friendly_description "$action" "$command" "$key" "$mod")
+        
+        # Pula se não houver descrição
+        [[ -z "$description" ]] && continue
         
         # Output for rofi (aligned format)
         printf "%-30s │ %s\n" "$keybind" "$description"
