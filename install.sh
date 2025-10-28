@@ -75,8 +75,10 @@ _copy_configs() {
     
     # Cria os diretórios de configuração
     mkdir -p "$HOME/.config/hypr"
+    mkdir -p "$HOME/.config/hypr/scripts"
     mkdir -p "$HOME/.config/rofi"
     mkdir -p "$HOME/.config/waybar"
+    mkdir -p "$HOME/.config/swaync"
     mkdir -p "$HOME/Imagens/wallpapers"
     
     # Copia os arquivos da estrutura core (configurações principais)
@@ -90,7 +92,6 @@ _copy_configs() {
     fi
     
     # Copia scripts
-    mkdir -p "$HOME/.config/hypr/scripts"
     cp -r "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
     
     # Copia configurações do Rofi
@@ -105,7 +106,6 @@ _copy_configs() {
     cp "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
     
     # Copia configurações do SwayNC
-    mkdir -p "$HOME/.config/swaync"
     cp "$SRCDIR/components/swaync/config.json" "$HOME/.config/swaync/" 2>/dev/null || true
     cp "$SRCDIR/components/swaync/style.css" "$HOME/.config/swaync/" 2>/dev/null || true
     
@@ -118,7 +118,6 @@ _copy_configs() {
 # Função para definir permissões de execução para os scripts
 _set_permissions() {
     _print "Definindo permissões de execução para os scripts..."
-    mkdir -p "$HOME/.config/hypr/scripts"
     chmod +x "$HOME/.config/hypr/scripts/"*.sh 2>/dev/null || true
     
     # Define permissões para scripts do sistema também
