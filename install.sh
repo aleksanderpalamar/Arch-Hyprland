@@ -39,6 +39,7 @@ _install_packages() {
         thunar grim slurp swaylock pipewire wireplumber pipewire-pulse 
         pamixer pavucontrol brightnessctl playerctl nwg-displays jq
         noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome
+        python python-pip python-pyqt5 python-requests
     )
     
     sudo pacman -S --noconfirm --needed "${pkgs[@]}"
@@ -53,6 +54,21 @@ _install_aur_packages() {
     )
     
     $AUR_HELPER -S --noconfirm --needed "${aur_pkgs[@]}"
+}
+
+# Função para instalar dependências Python
+_install_python_deps() {
+    _print "Instalando dependências Python para o IA Chat..."
+    
+    if [ -f "$SRCDIR/scripts/requirements.txt" ]; then
+        pip install --user --break-system-packages -r "$SRCDIR/scripts/requirements.txt" 2>/dev/null || \
+        pip install --user -r "$SRCDIR/scripts/requirements.txt"
+        _print "Dependências Python instaladas com sucesso"
+    else
+        _warn "Arquivo requirements.txt não encontrado, instalando pacotes manualmente..."
+        pip install --user --break-system-packages requests python-dotenv PyQt5 2>/dev/null || \
+        pip install --user requests python-dotenv PyQt5
+    fi
 }
 
 # Verificação e instalação de pacotes extras (opcional)
@@ -111,9 +127,31 @@ _copy_configs() {
     elif [ -d "$SRCDIR/components/hyprland/UserConfigs" ]; then
         cp -r "$SRCDIR/components/hyprland/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
     fi
+
+    # Copia scripts Python
+    cp "$SRCDIR/scripts/"*.py "$HOME/.config/hypr/scripts/" 2>/dev/null || true
     
-    # Copia scripts
-    cp -r "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
+    # Copia arquivo .env.example e cria .env se não existir
+    if [ -f "$SRCDIR/scripts/.env.example" ]; then
+        cp "$SRCDIR/scripts/.env.example" "$HOME/.config/hypr/scripts/.env.example" 2>/dev/null || true
+        
+        # Só cria .env se não existir (para não sobrescrever configurações existentes)
+        if [ ! -f "$HOME/.config/hypr/scripts/.env" ]; then
+            cp "$SRCDIR/scripts/.env.example" "$HOME/.config/hypr/scripts/.env" 2>/dev/null || true
+            _warn "Arquivo .env criado em $HOME/.config/hypr/scripts/"
+            _warn "IMPORTANTE: Configure suas credenciais de API no arquivo .env para usar o IA Chat"
+        else
+            _print "Arquivo .env já existe, mantendo configurações atuais"
+        fi
+    fi
+    
+    # Copia requirements.txt
+    if [ -f "$SRCDIR/scripts/requirements.txt" ]; then
+        cp "$SRCDIR/scripts/requirements.txt" "$HOME/.config/hypr/scripts/" 2>/dev/null || true
+    fi
+
+    # Copia scripts Shell
+    cp "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
     
     # Copia configurações do Rofi
     cp -r "$SRCDIR/components/rofi/"*.rasi "$HOME/.config/rofi/" 2>/dev/null || true
@@ -140,9 +178,11 @@ _copy_configs() {
 _set_permissions() {
     _print "Definindo permissões de execução para os scripts..."
     chmod +x "$HOME/.config/hypr/scripts/"*.sh 2>/dev/null || true
+    chmod +x "$HOME/.config/hypr/scripts/"*.py 2>/dev/null || true
     
     # Define permissões para scripts do sistema também
     chmod +x "$SRCDIR/scripts/"*.sh 2>/dev/null || true
+    chmod +x "$SRCDIR/scripts/"*.py 2>/dev/null || true
     chmod +x "$SRCDIR/tools/"*.sh 2>/dev/null || true
     chmod +x "$SRCDIR/services/"*.sh 2>/dev/null || true
 }
@@ -188,6 +228,14 @@ _initialize_system() {
         _warn "✗ Erro ao copiar scripts"
     fi
     
+    # Verifica se o IA Chat foi instalado corretamente
+    if [ -f "$HOME/.config/hypr/scripts/ia_chat_hypr.py" ]; then
+        _print "✓ IA Chat instalado"
+        if [ -f "$HOME/.config/hypr/scripts/.env" ]; then
+            _warn "⚠ Configure o arquivo ~/.config/hypr/scripts/.env com suas credenciais de API"
+        fi
+    fi
+    
     # Corrige configurações desatualizadas
     _fix_deprecated_configs
     
@@ -201,6 +249,7 @@ main() {
     _check_aur_helper
     _install_packages
     _install_aur_packages
+    _install_python_deps
     _backup_configs
     _copy_configs
     _set_permissions
@@ -209,6 +258,12 @@ main() {
     _print "------------------------------------------------------"
     _print "Instalação concluída com sucesso!"
     _print "Sistema modular inicializado e configurações geradas!"
+    _print ""
+    _warn "IMPORTANTE: Configure o IA Chat"
+    _warn "1. Edite o arquivo: ~/.config/hypr/scripts/.env"
+    _warn "2. Adicione sua API key do Google Gemini ou OpenAI"
+    _warn "3. Obtenha chave Gemini grátis em: https://makersuite.google.com/app/apikey"
+    _print ""
     _warn "É recomendado reiniciar o sistema para que todas as alterações tenham efeito."
     _print "------------------------------------------------------"
 }
