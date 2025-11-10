@@ -1,1 +1,4 @@
 .github/copilot-instructions.md
+
+## Ignore File
+scripts/.env

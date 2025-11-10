@@ -1,202 +1,140 @@
-# 🏔️ Arch-Hyprland
+# 🜂 MonadArchy
 
-**Sistema completo de configuração Hyprland para Arch Linux**
+**The philosophy of functional minimalism applied to Arch Linux + Hyprland**
 
-Um ambiente desktop moderno, otimizado e totalmente funcional baseado no compositor Hyprland com sistema modular e instalação automatizada.
+MonadArchy is a complete and modular configuration system for **Hyprland**, designed for those who seek an aesthetic, lightweight, and deeply customizable environment. Inspired by the principles of freedom, simplicity, and performance from Arch Linux, it unites art, code, and philosophy into a coherent ecosystem.
 
 ![Hyprland](https://img.shields.io/badge/Hyprland-Wayland-blue?style=for-the-badge)
 ![Arch Linux](https://img.shields.io/badge/Arch-Linux-1793D1?style=for-the-badge&logo=arch-linux&logoColor=white)
-![License](https://img.shields.io/github/license/aleksanderpalamar/Arch-Hyprland?style=for-the-badge)
+![License](https://img.shields.io/github/license/aleksanderpalamar/MonadArchy?style=for-the-badge)
 
-## ✨ Características
+---
 
-- 🎯 **Instalação Automática** - Script único instala tudo
-- 🎨 **Temas Dinâmicos** - Cores geradas automaticamente do wallpaper
-- ⚡ **Performance Otimizada** - Sistema de cache e lazy loading
-- 🔧 **Modular** - Componentes independentes e customizáveis
-- 🖼️ **Wallpapers** - Seletor visual integrado
-- ⌨️ **Atalhos Intuitivos** - Configuração inspirada no i3/sway
-- � **Waybar** - Barra de status moderna e informativa
-- 🔍 **Rofi** - Menu de aplicações elegante
+## ✨ Concept
 
-## 🚀 Instalação Rápida
+> "From unity comes freedom. From chaos, form."
+
+MonadArchy combines the hacker philosophy of _do it yourself_ with the elegance of functional configuration. Each component is independent, adaptable, and interconnected in harmony—reflecting the ideal of a system where **everything has a purpose** and **nothing is superfluous**.
+
+---
+
+## ⚙️ Features
+
+- 🚀 **Automated Installation** — a single script installs, configures, and creates backups automatically.
+- 🧩 **Total Modularity** — each module can be easily adjusted, replaced, or removed.
+- 🎨 **Dynamic Theming** — colors and accents generated automatically from the wallpaper.
+- ⚡ **Extreme Performance** — fast startup, intelligent caching, and lazy loading.
+- ⌨️ **Intuitive Keybindings** — inspired by productive i3 and sway workflows.
+- 🖼️ **Balanced Aesthetics** — a clean fusion of minimalism and visual elegance.
+
+---
+
+## 🚀 Installation
 
 ```bash
-# Clone o repositório
-git clone https://github.com/aleksanderpalamar/Arch-Hyprland.git
-cd Arch-Hyprland
-
-# Execute a instalação (faz backup automaticamente)
+git clone https://github.com/aleksanderpalamar/MonadArchy.git
+cd MonadArchy
 ./install.sh
 ```
 
-### Após a Instalação
+1. **Log out** from your current desktop session.
+2. **Select "Hyprland"** in your display manager.
+3. **Use Super + Enter** to open the terminal.
 
-1. **Faça logout** do desktop atual
-2. **Selecione "Hyprland"** no display manager
-3. **Use Super + Enter** para abrir o terminal
+---
 
-## � Componentes Inclusos
+## 🧠 MonadArchy Philosophy
 
-- **🪟 Hyprland** - Compositor Wayland moderno
-- **� Waybar** - Barra de status personalizável
-- **🔍 Rofi** - Lançador de aplicações elegante
-- **🖼️ Hyprpaper** - Gerenciador de wallpapers
-- **🎨 Wallust** - Gerador automático de temas
-- **🔔 SwayNC** - Centro de notificações
-- **📁 Thunar** - Gerenciador de arquivos
-- **⌨️ Kitty** - Terminal moderno e rápido
+MonadArchy is more than a configuration—it’s a statement of intent: **to master digital chaos through conscious simplicity**.
+Inspired by Leibniz’s concept of _monads_—autonomous units that reflect the whole—each module mirrors the entire system: harmony, freedom, and self-sufficiency.
 
-## ⌨️ Atalhos Principais
+---
 
-| Atalho                | Ação                    |
-| --------------------- | ----------------------- |
-| `Super + Enter`       | Terminal                |
-| `Super + Q`           | Fechar janela           |
-| `Super + M`           | Sair do Hyprland        |
-| `Super + R`           | Menu de aplicações      |
-| `Super + W`           | Seletor de wallpapers   |
-| `Super + E`           | Gerenciador de arquivos |
-| `Super + 1-9`         | Trocar workspace        |
-| `Super + Shift + 1-9` | Mover janela            |
+## 🧰 Core Components
 
-## 🎨 Personalização Rápida
+- 🪟 **Hyprland** — modern, responsive Wayland compositor.
+- 📊 **Waybar** — elegant and informative status bar.
+- 🔍 **Rofi** — lightweight, fluid application launcher.
+- 🖼️ **Hyprpaper** — wallpaper manager with dynamic integration.
+- 🎨 **Wallust** — generates color schemes based on wallpapers.
+- 🔔 **SwayNC** — integrated notification center.
+- 📁 **Thunar** — lightweight, functional file manager.
+- 💻 **Kitty** — fast, aesthetic terminal emulator.
 
-### Alterar Wallpaper
+---
+
+## ⌨️ Keybindings
+
+| Shortcut              | Action                         |
+| --------------------- | ------------------------------ |
+| `Super + Enter`       | Open terminal                  |
+| `Super + Q`           | Close window                   |
+| `Super + M`           | Log out                        |
+| `Super + R`           | Application menu               |
+| `Super + W`           | Wallpaper selector             |
+| `Super + 1-9`         | Switch workspace               |
+| `Super + Shift + 1-9` | Move window between workspaces |
+
+---
+
+## 🎨 Customization
 
 ```bash
-Super + W  # Abre seletor visual
-```
-
-### Configurar Temas
-
-```bash
-# Editar configurações
+Super + W  # Opens wallpaper selector
 nano ~/.config/hypr/UserConfigs/UserDecorations.conf
 ```
 
-### Personalizar Waybar
+- **Waybar:** `~/.config/waybar/`
+- **Rofi:** `~/.config/rofi/`
+- **Wallpapers:** `~/Pictures/wallpapers/`
 
-```bash
-# Editar layout
-nano ~/.config/waybar/config.jsonc
-# Editar estilo
-nano ~/.config/waybar/style.css
-```
+---
 
-| Atalho                | Ação                        |
-| --------------------- | --------------------------- |
-| `Super + Enter`       | Terminal                    |
-| `Super + Q`           | Fechar janela               |
-| `Super + R`           | Menu de aplicações          |
-| `Super + W`           | Seletor de wallpapers       |
-| `Super + 1-9`         | Trocar workspace            |
-| `Super + Shift + 1-9` | Mover janela para workspace |
-
-### 🔧 Configurações Rápidas
-
-```bash
-# Recarregar configuração do Hyprland
-hyprctl reload
-
-# Recarregar Waybar
-killall waybar && waybar &
-
-# Aplicar novo wallpaper
-~/.config/hypr/scripts/SelectWallpaper.sh
-```
-
-## 🆘 Problemas Comuns
-
-### Hyprland não inicia
-
-```bash
-# Verificar logs
-journalctl -u display-manager
-# ou
-~/.local/share/hyprland/hyprland.log
-```
-
-### Waybar não aparece
-
-```bash
-# Restartar waybar
-killall waybar
-waybar &
-```
-
-### Sem áudio
-
-```bash
-# Verificar PipeWire
-systemctl --user status pipewire
-systemctl --user restart pipewire
-```
-
-## 📁 Estrutura de Arquivos
+## 📂 Directory Structure
 
 ```
-~/.config/hypr/          # Configurações principais
-├── hyprland.conf        # Configuração principal
-├── UserConfigs/         # Suas personalizações
-├── scripts/             # Scripts de automação
+~/.config/hypr/
+├── hyprland.conf
+├── UserConfigs/
+├── scripts/
 └── ...
 
-~/.config/waybar/        # Barra superior
-~/.config/rofi/          # Menu de aplicações
-~/Imagens/wallpapers/    # Seus wallpapers
+~/.config/waybar/
+~/.config/rofi/
+~/Pictures/wallpapers/
 ```
 
-## 🔄 Atualização
+---
+
+## 🔄 Updating
 
 ```bash
-# Atualizar para versão mais recente
-cd Arch-Hyprland
+cd MonadArchy
 git pull
-./install.sh  # Faz backup automático antes de atualizar
+./install.sh
 ```
 
-## � Documentação
+---
 
-- **[📖 Guia do Usuário](docs/USER_GUIDE.md)** - Tutorial completo de uso
-- **[🏗️ Arquitetura](docs/architecture/ARCHITECTURE.md)** - Como funciona internamente
-- **[📋 API Reference](docs/api/API.md)** - APIs para desenvolvedores
+## 🤝 Contributing
 
-## 🛠️ Requisitos
-
-### Sistema Base
-
-- **Arch Linux** (ou derivado)
-- **yay** ou **paru** (AUR helper)
-
-### Dependências (instaladas automaticamente)
-
-- `hyprland` `waybar` `rofi` `kitty`
-- `hyprpaper` `swaync` `thunar`
-- `grim` `slurp` `swaylock`
-- `pipewire` `wireplumber` `pamixer`
-
-## 🤝 Contribuindo
-
-1. **Fork** o projeto
-2. **Crie** uma branch para sua feature
-3. **Commit** suas mudanças
-4. **Push** para a branch
-5. **Abra** um Pull Request
-
-## � Licença
-
-Este projeto está sob a licença MIT. Veja [LICENSE](LICENSE) para mais detalhes.
-
-## 🙏 Agradecimentos
-
-- **[Hyprland](https://hyprland.org/)** - Compositor Wayland incrível
-- **[Waybar](https://github.com/Alexays/Waybar)** - Barra de status customizável
-- **[Rofi](https://github.com/davatorium/rofi)** - Lançador versátil
-- **Comunidade Arch Linux** - Base sólida e suporte
+1. **Fork** the repository.
+2. **Create** a new branch.
+3. **Commit** your changes.
+4. **Open** a Pull Request.
 
 ---
 
-⭐ **Gostou do projeto? Dê uma estrela para apoiar!**
+## 📜 License
+
+This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
+
+## 🧭 Final Philosophy
+
+> _"Order and freedom are not opposites. They coexist in harmony when code reflects consciousness."_
+
+---
+
+⭐ **Give MonadArchy a star if it inspired you to find elegance in the essential.**
