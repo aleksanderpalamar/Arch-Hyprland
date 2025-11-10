@@ -103,6 +103,7 @@ _backup_configs() {
     [ -d "$HOME/.config/rofi" ] && mv "$HOME/.config/rofi" "$BACKUP_DIR/"
     [ -d "$HOME/.config/waybar" ] && mv "$HOME/.config/waybar" "$BACKUP_DIR/"
     [ -d "$HOME/.config/swaync" ] && mv "$HOME/.config/swaync" "$BACKUP_DIR/"
+    [ -d "$HOME/.config/kitty" ] && mv "$HOME/.config/kitty" "$BACKUP_DIR/"
 }
 
 # Função para copiar as novas configurações
@@ -117,6 +118,10 @@ _copy_configs() {
     mkdir -p "$HOME/.config/waybar"
     mkdir -p "$HOME/.config/swaync"
     mkdir -p "$HOME/Imagens/wallpapers"
+    mkdir -p "$HOME/.config/kitty"
+
+    # Copia configurações do Kitty
+    cp -r "$SRCDIR/components/kitty/"* "$HOME/.config/kitty/" 2>/dev/null || true
     
     # Copia os arquivos da estrutura core (configurações principais)
     cp -r "$SRCDIR/core/hypr/"*.conf "$HOME/.config/hypr/" 2>/dev/null || true
