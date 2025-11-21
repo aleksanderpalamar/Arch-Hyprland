@@ -39,7 +39,8 @@ _install_packages() {
         thunar grim slurp swaylock pipewire wireplumber pipewire-pulse 
         pamixer pavucontrol brightnessctl playerctl nwg-displays jq
         noto-fonts noto-fonts-cjk noto-fonts-emoji ttf-font-awesome
-        python python-pip python-pyqt5 python-requests
+        python python-pip python-pyqt5 python-requests gnome-keyring
+        libsecret polkit-gnome nautilus
     )
     
     sudo pacman -S --noconfirm --needed "${pkgs[@]}"
@@ -126,12 +127,8 @@ _copy_configs() {
     # Copia os arquivos da estrutura core (configurações principais)
     cp -r "$SRCDIR/core/hypr/"*.conf "$HOME/.config/hypr/" 2>/dev/null || true
     
-    # Copia UserConfigs (prioriza core, depois components)
-    if [ -d "$SRCDIR/core/hypr/UserConfigs" ]; then
-        cp -r "$SRCDIR/core/hypr/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
-    elif [ -d "$SRCDIR/components/hyprland/UserConfigs" ]; then
-        cp -r "$SRCDIR/components/hyprland/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
-    fi
+    # Copia UserConfigs do core
+    cp -r "$SRCDIR/core/hypr/UserConfigs" "$HOME/.config/hypr/" 2>/dev/null || true
 
     # Copia scripts Python
     cp "$SRCDIR/scripts/"*.py "$HOME/.config/hypr/scripts/" 2>/dev/null || true
