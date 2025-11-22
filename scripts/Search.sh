@@ -21,6 +21,14 @@ msg='**note** search via default web browser'
 
 if pgrep -x "rofi" >/dev/null; then
     pkill rofi
+    sleep 0.1
 fi
 
-echo "" | rofi -dmenu -config "$rofi_theme" -mesg "$msg" | xargs -I{} xdg-open $Search_Engine
+query=$(echo "" | rofi -dmenu -config "$rofi_theme" -mesg "$msg")
+
+# Força refresh do Hyprland para limpar qualquer overlay residual
+hyprctl dispatch focuscurrentorlast
+
+if [[ -n "$query" ]]; then
+    xdg-open "${Search_Engine/\{\}/$query}"
+fi

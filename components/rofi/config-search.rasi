@@ -1,7 +1,8 @@
-@import "~/.config/rofi/config.rasi"  
+@import "~/.config/rofi/config.rasi"
 
 /* ---- Window ---- */
 window {
+	transparency: false;
 	width: 40%;
 	//orientation: horizontal;
 	height: inherit;
