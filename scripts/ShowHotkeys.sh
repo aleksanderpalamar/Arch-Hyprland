@@ -17,6 +17,7 @@ get_friendly_description() {
     # Application launchers
     [[ "$command" == *"terminal"* || "$command" == *"kitty"* ]] && echo "🖥️  Abrir terminal" && return
     [[ "$command" == *"fileManager"* || "$command" == *"thunar"* || "$command" == *"nautilus"* ]] && echo "📁 Abrir gerenciador de arquivos" && return
+    [[ "$command" == *"search"* || "$command" == *"Search"* ]] && echo "🔎 Pesquisar na web" && return
     [[ "$command" == *"msedge"* || "$command" == *"browser"* ]] && echo "🌐 Abrir menu" && return
     [[ "$command" == *"warpterminal"* ]] && echo "⚡ Abrir Warp Terminal" && return
     [[ "$command" == *"rofi -show drun"* ]] && echo "🚀 Abrir menu de aplicativos" && return
