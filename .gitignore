@@ -1,4 +1,8 @@
 .github/copilot-instructions.md
+.github/commands
+.github/workflows
 
 ## Ignore File
 scripts/.env
+.gemini/
+gha-creds-*.json
