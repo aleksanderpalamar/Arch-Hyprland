@@ -10,14 +10,6 @@ MonadArchy is a complete and modular configuration system for **Hyprland**, desi
 
 ---
 
-## ✨ Concept
-
-> "From unity comes freedom. From chaos, form."
-
-MonadArchy combines the hacker philosophy of _do it yourself_ with the elegance of functional configuration. Each component is independent, adaptable, and interconnected in harmony—reflecting the ideal of a system where **everything has a purpose** and **nothing is superfluous**.
-
----
-
 ## ⚙️ Features
 
 - 🚀 **Automated Installation** — a single script installs, configures, and creates backups automatically.
@@ -69,7 +61,7 @@ Inspired by Leibniz’s concept of _monads_—autonomous units that reflect the 
 | --------------------- | ------------------------------ |
 | `Super + Enter`       | Open terminal                  |
 | `Super + Q`           | Close window                   |
-| `Super + M`           | Log out                        |
+| `CTRL + ALT + P`      | Log out                        |
 | `Super + R`           | Application menu               |
 | `Super + W`           | Wallpaper selector             |
 | `Super + 1-9`         | Switch workspace               |
@@ -130,11 +122,3 @@ git pull
 This project is licensed under the **MIT License**. See [LICENSE](LICENSE) for details.
 
 ---
-
-## 🧭 Final Philosophy
-
-> _"Order and freedom are not opposites. They coexist in harmony when code reflects consciousness."_
-
----
-
-⭐ **Give MonadArchy a star if it inspired you to find elegance in the essential.**
