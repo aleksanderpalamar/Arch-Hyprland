@@ -1,28 +1,23 @@
 #!/bin/bash
-# This file used on waybar modules sourcing defaults set in $HOME/.config/hypr/UserConfigs/01-UserDefaults.conf
 
-# Define the path to the config file
 config_file=$HOME/.config/hypr/UserConfigs/UserDefaults.conf
 
-# Check if the config file exists
 if [[ ! -f "$config_file" ]]; then
     echo "Error: Configuration file not found!"
     exit 1
 fi
 
-# Process the config file in memory, removing the $ and fixing spaces
-config_content=$(sed 's/\$//g' "$config_file" | sed 's/ = /=/')
+get_config() {
+    local var_name="$1"
+    grep "^\s*\$$var_name\s*=" "$config_file" | sed 's/^.*=//;s/#.*//' | xargs | sed 's/^"//;s/"$//'
+}
 
-# Source the modified content directly from the variable
-eval "$config_content"
+term=$(get_config "term")
+files=$(get_config "files")
 
-# Check if $term is set correctly
-if [[ -z "$term" ]]; then
-    echo "Error: \$term is not set in the configuration file!"
-    exit 1
-fi
+[ -z "$term" ] && term="kitty"
+[ -z "$files" ] && files="nautilus"
 
-# Execute accordingly based on the passed argument
 if [[ "$1" == "--btop" ]]; then
     $term --title btop sh -c 'btop'
 elif [[ "$1" == "--nvtop" ]]; then
@@ -38,6 +33,6 @@ else
     echo "--btop       : Open btop in a new term"
     echo "--nvtop      : Open nvtop in a new term"
     echo "--nmtui      : Open nmtui in a new term"
-    echo "--term   : Launch a term window"
-    echo "--files  : Launch a file manager"
+    echo "--term       : Launch a term window"
+    echo "--files      : Launch a file manager"
 fi
