@@ -1,8 +1,5 @@
 #!/bin/bash
-
-# ------------------------------------------------------
-# Script de Instalação do Hyprland e Dotfiles
-# ------------------------------------------------------
+set -e
 
 # Cores para as mensagens
 GREEN="\e[32m"
@@ -213,7 +210,6 @@ main() {
     _check_aur_helper
     _install_packages
     _install_aur_packages
-    _install_python_deps
     _backup_configs
     _copy_configs
     _set_permissions
