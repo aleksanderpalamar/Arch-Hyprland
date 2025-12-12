@@ -1,5 +1,4 @@
 #!/bin/bash
-# Simplified & modular Hyprland hotkey viewer
 
 CONFIG_FILE="$HOME/.config/hypr/UserConfigs/UserKeybinds.conf"
 
@@ -70,32 +69,25 @@ get_friendly_description() {
     echo "⚙️  $action $command"
 }
 
-# Function to parse keybinds
 parse_keybinds() {
     local config_file="$1"
     local main_mod="SUPER"
 
-    # Read the config file and parse binds
-    grep '^bind' "$config_file" | while IFS= read -r line; do
-        # Remove leading/trailing spaces and split by comma
+    
+    grep '^bind' "$config_file" | while IFS= read -r line; do        
         line=$(echo "$line" | sed 's/^bind[mel]* = //' | sed 's/,$//')
         
-        # Replace $mainMod with SUPER
         line=$(echo "$line" | sed "s/\$mainMod/$main_mod/")
         
-        # Split into parts
         IFS=',' read -r mod key action command <<< "$line"
         
-        # Clean up spaces
         mod=$(echo "$mod" | xargs)
         key=$(echo "$key" | xargs)
         action=$(echo "$action" | xargs)
         command=$(echo "$command" | xargs)
         
-        # Skip empty key bindings
         [[ -z "$key" ]] && continue
         
-        # Format the key combination
         if [[ "$mod" == "$main_mod" ]]; then
             keybind="SUPER + $key"
         elif [[ -z "$mod" ]]; then
@@ -104,13 +96,10 @@ parse_keybinds() {
             keybind="$mod + $key"
         fi
         
-        # Get friendly description
         description=$(get_friendly_description "$action" "$command" "$key" "$mod")
         
-        # Output for rofi (aligned format)
         printf "%-30s │ %s\n" "$keybind" "$description"
     done
 }
 
-# Generate the list and show with rofi
 parse_keybinds "$CONFIG_FILE" | rofi -dmenu -i -p "⌨️  Atalhos do Hyprland" -theme-str 'window {width: 800px;}'
