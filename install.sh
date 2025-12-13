@@ -73,7 +73,6 @@ _install_extra_packages() {
     sudo pacman -S --noconfirm --needed "${extra_pkgs[@]}"
 }
 
-
 # Função para fazer backup das configurações existentes
 _backup_configs() {
     _print "Fazendo backup das configurações existentes..."
@@ -203,7 +202,6 @@ _initialize_system() {
     _print "Sistema básico configurado e pronto para uso"
 }
 
-# Função principal
 main() {
     _print "Iniciando a instalação do ambiente Hyprland..."
     
@@ -222,5 +220,4 @@ main() {
     _print "------------------------------------------------------"
 }
 
-# Executa a função principal
 main
