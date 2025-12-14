@@ -30,6 +30,12 @@ query=$(echo "" | rofi -dmenu -config "$rofi_theme" -mesg "$msg")
 
 hyprctl dispatch focuscurrentorlast
 
-if [[ -n "$query" ]]; then
-    xdg-open "${Search_Engine/\{\}/$query}"
-fi
+fi [[ -n "$query"]]; then
+    if command -v python3 &>/dev/null; then
+        encoded_query=$(echo "$query" | python3 -c "import urllib.parse, sys; print(urllib.parse.quote(sys.stdin.read().strip()))")
+    else
+        encoded_query=${query// /%20}
+
+    url="${Search_Engine/\{\}/$encoded_query}"
+    xdg-open "$url"
+fi   
