@@ -6,3 +6,6 @@
 scripts/.env
 .gemini/
 gha-creds-*.json
+
+## Plan
+/plan
