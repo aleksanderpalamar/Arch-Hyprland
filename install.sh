@@ -107,7 +107,15 @@ _copy_configs() {
 
     cp "$SRCDIR/components/waybar/config.jsonc" "$HOME/.config/waybar/" 2>/dev/null || true
     cp "$SRCDIR/components/waybar/style.css" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp "$SRCDIR/components/waybar/colors.css" "$HOME/.config/waybar/" 2>/dev/null || true
+    cp -d "$SRCDIR/components/waybar/theme.css" "$HOME/.config/waybar/" 2>/dev/null || true
     cp "$SRCDIR/components/waybar/Modules"* "$HOME/.config/waybar/" 2>/dev/null || true
+
+    mkdir -p "$HOME/.config/waybar/modules"
+    cp "$SRCDIR/components/waybar/modules/"*.jsonc "$HOME/.config/waybar/modules/" 2>/dev/null || true
+
+    mkdir -p "$HOME/.config/waybar/themes"
+    cp "$SRCDIR/components/waybar/themes/"*.css "$HOME/.config/waybar/themes/" 2>/dev/null || true
 
     cp "$SRCDIR/components/swaync/config.json" "$HOME/.config/swaync/" 2>/dev/null || true
     cp "$SRCDIR/components/swaync/style.css" "$HOME/.config/swaync/" 2>/dev/null || true
