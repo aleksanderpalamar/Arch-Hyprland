@@ -51,8 +51,6 @@ fi
 
 query=$(echo "" | rofi -dmenu -config "$rofi_theme" -mesg "$msg")
 
-hyprctl dispatch focuscurrentorlast
-
 if [[ -n "$query" ]]; then
     query=$(echo "$query" | xargs)
 
