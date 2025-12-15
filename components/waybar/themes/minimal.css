@@ -1,0 +1,98 @@
+window#waybar {
+  background: transparent;
+  border-bottom: 2px solid @primary;
+  color: @text;
+}
+
+tooltip {
+  background-color: @background-dark;
+  border: 1px solid @border;
+}
+
+#clock tooltip {
+  background-color: @background-dark;
+  border: 1px solid @border;
+}
+
+#taskbar button,
+#workspaces button {
+  color: @text;
+  background-color: transparent;
+}
+
+#taskbar button.active,
+#workspaces button.active {
+  background-color: transparent;
+  color: @primary;
+  border-bottom: 2px solid @primary;
+  border-radius: 0;
+}
+
+#taskbar button:hover,
+#workspaces button:hover {
+  background: transparent;
+  color: @secondary;
+  border-bottom: 2px solid @secondary;
+  border-radius: 0;
+}
+
+#mode {
+  background-color: transparent;
+  color: @text;
+  border-bottom: 3px solid @primary;
+}
+
+#clock {
+  color: @text;
+  font-weight: bold;
+}
+
+#battery.critical:not(.charging) {
+  color: @critical;
+}
+
+#custom-menu {
+  color: @primary;
+}
+
+#cpu, #memory, #disk {
+  color: @text-muted;
+}
+
+#backlight {
+  color: @text-muted;
+}
+
+#bluetooth, #network, #pulseaudio {
+  color: @text;
+}
+
+#network.disconnected {
+  color: @critical;
+}
+
+#pulseaudio-muted {
+  color: @text-muted;
+}
+
+#custom-swaync, #custom-power, #custom-lock {
+  color: @text;
+}
+
+#temperature {
+  color: @text;
+}
+
+#temperature.critical {
+  color: @critical;
+}
+
+#custom-hypridle,
+#idle_inhibitor {
+  color: @text-muted;
+}
+
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+  color: @success;
+}

@@ -1,0 +1,170 @@
+window#waybar {
+  background: @background;
+  border: 1px solid @border;
+  color: @text;
+}
+
+tooltip {
+  background-color: @background;
+  border: 1px solid @border;
+}
+
+#clock tooltip {
+  background-color: @background;
+  border: 1px solid @border;
+}
+
+#taskbar button,
+#workspaces button {
+  color: @text;
+}
+
+#taskbar button.active,
+#workspaces button.active {
+  background-color: @primary;
+  color: @text;
+}
+
+#taskbar button:hover,
+#workspaces button:hover {
+  background: @secondary;
+  color: @text;
+}
+
+#mode {
+  background-color: @tertiary;
+  border-bottom: 3px solid @text;
+}
+
+#clock {
+  color: @text;
+}
+
+#battery.critical:not(.charging) {
+  color: @critical;
+}
+
+label:focus {
+  background-color: #000000;
+}
+
+#custom-menu {
+  color: @text;
+}
+
+#custom-keyboard,
+#cpu {
+  color: @text;
+}
+
+#memory {
+  color: @text;
+}
+
+#backlight {
+  color: @text-muted;
+}
+
+#bluetooth {
+  color: @text;
+}
+
+#network {
+  color: @text;
+}
+
+#network.disconnected {
+  color: #df3320;
+}
+
+#pulseaudio {
+  color: @text;
+}
+
+#pulseaudio-muted {
+  color: @success;
+}
+
+#wireplumber {
+  color: @mauve;
+}
+
+#wireplumber-muted {
+  color: @success;
+}
+
+#pluseaudio-source-muted {
+  color: #a0a0a0;
+}
+
+#custom-swaync {
+  color: @text;
+}
+
+#custom-power {
+  color: @text;
+}
+
+#disk {
+  color: @text;
+}
+
+#custom-power_profile {
+  color: @text;
+}
+
+#custom-media {
+  background-color: #66cc99;
+  color: #2a5c45;
+}
+
+#custom-weather {
+  color: #66cc99;
+}
+
+#custom-lock {
+  color: @warning;
+}
+
+#keyboard-state,
+#temperature {
+  color: @info;
+}
+
+#temperature.critical {
+  background-color: @critical;
+}
+
+#custom-hypridle,
+#idle_inhibitor {
+  color: @yellow;
+}
+
+#custom-hypridle.notactive,
+#idle_inhibitor.activated {
+  color: #39ff14;
+}
+
+#mpd {
+  color: #2a5c45;
+}
+
+#mpd.disconnected {
+  background-color: #f53c3c;
+}
+
+#mpd.stopped {
+  background-color: #90b1b1;
+}
+
+#mpd.paused {
+  background-color: #51a37a;
+}
+
+#custom-language {
+  color: #7da6ff;
+}
+
+#custom-separator {
+  color: #606060;
+}

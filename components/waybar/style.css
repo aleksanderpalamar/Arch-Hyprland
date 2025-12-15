@@ -1,3 +1,6 @@
+@import "colors.css";
+@import "theme.css";
+
 * {
   font-family: "JetBrainsMono Nerd Font";
   font-weight: normal;
@@ -8,9 +11,6 @@
 }
 
 window#waybar {
-  background: rgba(40, 30, 46, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
   transition-property: background-color;
   transition-duration: 0.5s;
   border-radius: 0px;
@@ -21,26 +21,20 @@ window#waybar.hidden {
 }
 
 tooltip {
-  background-color: rgba(40, 30, 46, 0.9);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 10px;
   margin: 10px;
 }
 
 /* Calendário - tooltip do clock */
 #clock tooltip {
-  background-color: rgba(40, 30, 46, 0.9);
   border-radius: 12px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
   padding: 10px;
   margin: 10px;
 }
 
 #taskbar button,
 #workspaces button {
-  background-color: transparent;
-  color: #ffffff;
   box-shadow: none;
   text-shadow: none;
   padding-left: 8px;
@@ -52,8 +46,6 @@ tooltip {
 
 #taskbar button.active,
 #workspaces button.active {
-  background-color: #8257e6;
-  color: #ffffff;
   padding-left: 8px;
   padding-right: 8px;
   animation: gradient_f 20s ease-in infinite;
@@ -62,17 +54,10 @@ tooltip {
 
 #taskbar button:hover,
 #workspaces button:hover {
-  background: #d883ff;
-  color: #ffffff;
   padding-left: 8px;
   padding-right: 8px;
   animation: gradient_f 20s ease-in infinite;
   transition: all 0.3s cubic-bezier(0.55, -0.68, 0.48, 1.682);
-}
-
-#mode {
-  background-color: #64727d;
-  border-bottom: 3px solid #ffffff;
 }
 
 #backlight,
@@ -146,10 +131,6 @@ tooltip {
 .modules-right > widget:last-child > #workspaces {
 }
 
-#clock {
-  color: #ffffff;
-}
-
 @keyframes blink {
   to {
     background-color: #ffffff;
@@ -170,7 +151,6 @@ tooltip {
 }
 
 #battery.critical:not(.charging) {
-  color: #ff0000;
   animation-name: blink;
   animation-duration: 3s;
   animation-timing-function: steps(12);
@@ -178,136 +158,12 @@ tooltip {
   animation-direction: alternate;
 }
 
-label:focus {
-  background-color: #000000;
-}
-
-#custom-menu {
-  color: #ffffff;
-  /*padding: 3px;*/
-}
-
-#custom-keyboard,
-#cpu {
-  color: #ffffff;
-}
-
-#memory {
-  color: #ffffff;
-}
-
-#backlight {
-  color: #cdd6f4;
-}
-
-#bluetooth {
-  color: #ffffff;
-}
-
-#network {
-  color: #ffffff;
-}
-
-#network.disconnected {
-  color: #df3320;
-}
-
-#pulseaudio {
-  color: #ffffff;
-}
-
-#pulseaudio-muted {
-  color: #b9f27c;
-}
-#wireplumber {
-  color: #bb9af7;
-}
-
-#wireplumber-muted {
-  color: #b9f27c;
-}
-
-#pluseaudio-source-muted {
-  color: #a0a0a0;
-}
-
-#custom-swaync {
-  color: #ffffff;
-}
-
-#custom-power {
-  color: #ffffff;
-}
-
-#disk {
-  color: #ffffff;
-}
-#custom-power_profile {
-  color: #ffffff;
-}
 #custom-media {
-  background-color: #66cc99;
-  color: #2a5c45;
   min-width: 100px;
 }
 
-#custom-weather {
-  color: #66cc99;
-}
-
-#custom-lock {
-  color: #ffa000;
-}
-
-#keyboard-state,
-#temperature {
-  color: #0db9d7;
-  /* background-color: #f0932b; */
-}
-
-#temperature.critical {
-  background-color: #ff0000;
-}
-
-#tray {
-  /* background-color: #505050; */
-}
-
-#custom-hypridle,
-#idle_inhibitor {
-  color: #f9e2af;
-  /*background-color: #2d3436;*/
-}
-
-/*-----Indicators----*/
-#custom-hypridle.notactive,
-#idle_inhibitor.activated {
-  color: #39ff14;
-}
-
-#mpd {
-  color: #2a5c45;
-}
-
-#mpd.disconnected {
-  background-color: #f53c3c;
-}
-
-#mpd.stopped {
-  background-color: #90b1b1;
-}
-
-#mpd.paused {
-  background-color: #51a37a;
-}
-
 #custom-language {
-  color: #7da6ff;
   min-width: 16px;
-}
-
-#custom-separator {
-  color: #606060;
 }
 
 #backlight-slider slider,
