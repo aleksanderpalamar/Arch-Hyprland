@@ -28,6 +28,12 @@ elif [[ "$1" == "--term" ]]; then
     $term &
 elif [[ "$1" == "--files" ]]; then
     $files &
+elif [[ "$1" == "--calendar" ]]; then
+    if command -v gnome-calendar &> /dev/null; then
+        gnome-calendar &
+    else
+        $term --title calendar sh -c "cal -y && read"
+    fi
 else
     echo "Usage: $0 [--btop | --nvtop | --nmtui | --term]"
     echo "--btop       : Open btop in a new term"
