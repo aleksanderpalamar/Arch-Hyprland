@@ -2,8 +2,11 @@
   "include": [
     "~/.config/waybar/Modules",
     "~/.config/waybar/ModulesGroups",
-    "~/.config/waybar/ModulesWorkspaces",
-    "~/.config/waybar/ModulesCustom"
+    "~/.config/waybar/ModulesCustom",
+    "~/.config/waybar/modules/system.jsonc",
+    "~/.config/waybar/modules/network.jsonc",
+    "~/.config/waybar/modules/audio.jsonc",
+    "~/.config/waybar/modules/interface.jsonc"
   ],
   "layer": "top",
   "mode": "dock",

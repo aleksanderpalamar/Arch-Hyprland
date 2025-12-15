@@ -15,31 +15,6 @@
       "custom/settings"
     ]
   },
-  "group/motherboard": {
-    "orientation": "horizontal",
-    "modules": [
-      "cpu",
-      "power-profiles-daemon",
-      "memory",
-      "temperature",
-      "disk"
-    ]
-  },
-  "group/mobo_drawer": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "children-class": "cpu",
-      "transition-left-to-right": true
-    },
-    "modules": [
-      "temperature",
-      "cpu",
-      "power-profiles-daemon",
-      "memory",
-      "disk"
-    ]
-  },
   "group/laptop": {
     "orientation": "inherit",
     "modules": [
@@ -59,30 +34,6 @@
     "on-scroll-up": "~/.config/hypr/scripts/Volume.sh --inc",
     "on-scroll-down": "~/.config/hypr/scripts/Volume.sh --dec",
     "smooth-scrolling-threshold": 1
-  },
-  "group/audio": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "children-class": "pulseaudio",
-      "transition-left-to-right": true
-    },
-    "modules": [
-      "pulseaudio",
-      "pulseaudio#microphone"
-    ]
-  },
-  "group/connections": {
-    "orientation": "inherit",
-    "drawer": {
-      "transition-duration": 500,
-      "children-class": "bluetooth",
-      "transition-left-to-right": true
-    },
-    "modules": [
-      "network",
-      "bluetooth"
-    ]
   },
   "group/status": {
     "orientation": "inherit",

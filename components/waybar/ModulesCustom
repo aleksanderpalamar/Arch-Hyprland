@@ -5,21 +5,6 @@
     "tooltip": true,
     "tooltip-format": "Hyprpicker"
   },
-  "custom/pulseaudio": {
-    "format": "{icon} {volume}%",
-    "on-click": "pavucontrol",
-    "on-scroll-up": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+",
-    "on-scroll-down": "wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-",
-    "on-click-right": "pavucontrol",
-    "format-muted": " mudo",
-    "format-icons": {
-      "default": [
-        "",
-        "",
-        ""
-      ]
-    }
-  },
   "custom/file_manager": {
     "format": " ",
     "on-click": "~/.config/hypr/scripts/WaybarScripts.sh --files",
