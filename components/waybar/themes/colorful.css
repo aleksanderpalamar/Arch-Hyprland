@@ -1,47 +1,47 @@
 window#waybar {
-  background: @background;
-  border: 1px solid @border;
-  color: @text;
+  background-color: rgba(40, 30, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
 }
 
 tooltip {
-  background-color: @background;
-  border: 1px solid @border;
+  background-color: rgba(40, 30, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #clock tooltip {
-  background-color: @background;
-  border: 1px solid @border;
+  background-color: rgba(40, 30, 46, 0.9);
+  border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
 #taskbar button,
 #workspaces button {
-  color: @text;
+  color: #ffffff;
 }
 
 #taskbar button.active,
 #workspaces button.active {
-  background-color: @primary;
-  color: @text;
+  background-color: #8257e6;
+  color: #ffffff;
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-  background: @secondary;
-  color: @text;
+  background-color: #d883ff;
+  color: #ffffff;
 }
 
 #mode {
-  background-color: @tertiary;
-  border-bottom: 3px solid @text;
+  background-color: #64727d;
+  border-bottom: 3px solid #ffffff;
 }
 
 #clock {
-  color: @text;
+  color: #ffffff;
 }
 
 #battery.critical:not(.charging) {
-  color: @critical;
+  color: #ff0000;
 }
 
 label:focus {
@@ -49,28 +49,28 @@ label:focus {
 }
 
 #custom-menu {
-  color: @text;
+  color: #ffffff;
 }
 
 #custom-keyboard,
 #cpu {
-  color: @text;
+  color: #ffffff;
 }
 
 #memory {
-  color: @text;
+  color: #ffffff;
 }
 
 #backlight {
-  color: @text-muted;
+  color: #cdd6f4;
 }
 
 #bluetooth {
-  color: @text;
+  color: #ffffff;
 }
 
 #network {
-  color: @text;
+  color: #ffffff;
 }
 
 #network.disconnected {
@@ -78,39 +78,39 @@ label:focus {
 }
 
 #pulseaudio {
-  color: @text;
+  color: #ffffff;
 }
 
 #pulseaudio-muted {
-  color: @success;
+  color: #b9f27c;
 }
 
 #wireplumber {
-  color: @mauve;
+  color: #cba6f7;
 }
 
 #wireplumber-muted {
-  color: @success;
+  color: #b9f27c;
 }
 
-#pluseaudio-source-muted {
+#pulseaudio-source-muted {
   color: #a0a0a0;
 }
 
 #custom-swaync {
-  color: @text;
+  color: #ffffff;
 }
 
 #custom-power {
-  color: @text;
+  color: #ffffff;
 }
 
 #disk {
-  color: @text;
+  color: #ffffff;
 }
 
 #custom-power_profile {
-  color: @text;
+  color: #ffffff;
 }
 
 #custom-media {
@@ -123,21 +123,21 @@ label:focus {
 }
 
 #custom-lock {
-  color: @warning;
+  color: #ffa000;
 }
 
 #keyboard-state,
 #temperature {
-  color: @info;
+  color: #0db9d7;
 }
 
 #temperature.critical {
-  background-color: @critical;
+  background-color: #ff0000;
 }
 
 #custom-hypridle,
 #idle_inhibitor {
-  color: @yellow;
+  color: #f9e2af;
 }
 
 #custom-hypridle.notactive,
