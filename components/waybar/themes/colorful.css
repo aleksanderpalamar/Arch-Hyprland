@@ -1,170 +1,170 @@
 window#waybar {
-  background-color: rgba(40, 30, 46, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  color: #ffffff;
+  background: @background;
+  border: 1px solid @border;
+  color: @text;
 }
 
 tooltip {
-  background-color: rgba(40, 30, 46, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: @background;
+  border: 1px solid @border;
 }
 
 #clock tooltip {
-  background-color: rgba(40, 30, 46, 0.9);
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  background: @background;
+  border: 1px solid @border;
 }
 
 #taskbar button,
 #workspaces button {
-  color: #ffffff;
+  color: @text;
 }
 
 #taskbar button.active,
 #workspaces button.active {
-  background-color: #8257e6;
-  color: #ffffff;
+  background: @primary;
+  color: @text;
 }
 
 #taskbar button:hover,
 #workspaces button:hover {
-  background-color: #d883ff;
-  color: #ffffff;
+  background: @secondary;
+  color: @text;
 }
 
 #mode {
-  background-color: #64727d;
-  border-bottom: 3px solid #ffffff;
+  background: @tertiary;
+  border-bottom: 3px solid @text;
 }
 
 #clock {
-  color: #ffffff;
+  color: @text;
 }
 
 #battery.critical:not(.charging) {
-  color: #ff0000;
+  color: @critical;
 }
 
 label:focus {
-  background-color: #000000;
+  background: #000000;
 }
 
 #custom-menu {
-  color: #ffffff;
+  color: @text;
 }
 
 #custom-keyboard,
 #cpu {
-  color: #ffffff;
+  color: @text;
 }
 
 #memory {
-  color: #ffffff;
+  color: @text;
 }
 
 #backlight {
-  color: #cdd6f4;
+  color: @text-muted;
 }
 
 #bluetooth {
-  color: #ffffff;
+  color: @text;
 }
 
 #network {
-  color: #ffffff;
+  color: @text;
 }
 
 #network.disconnected {
-  color: #df3320;
+  color: @critical;
 }
 
 #pulseaudio {
-  color: #ffffff;
+  color: @text;
 }
 
 #pulseaudio-muted {
-  color: #b9f27c;
+  color: @success;
 }
 
 #wireplumber {
-  color: #cba6f7;
+  color: @mauve;
 }
 
 #wireplumber-muted {
-  color: #b9f27c;
+  color: @success;
 }
 
 #pulseaudio-source-muted {
-  color: #a0a0a0;
+  color: @text-muted;
 }
 
 #custom-swaync {
-  color: #ffffff;
+  color: @text;
 }
 
 #custom-power {
-  color: #ffffff;
+  color: @text;
 }
 
 #disk {
-  color: #ffffff;
+  color: @text;
 }
 
 #custom-power_profile {
-  color: #ffffff;
+  color: @text;
 }
 
 #custom-media {
-  background-color: #66cc99;
-  color: #2a5c45;
+  background-color: @green;
+  color: @text-dark;
 }
 
 #custom-weather {
-  color: #66cc99;
+  color: @green;
 }
 
 #custom-lock {
-  color: #ffa000;
+  color: @warning;
 }
 
 #keyboard-state,
 #temperature {
-  color: #0db9d7;
+  color: @info;
 }
 
 #temperature.critical {
-  background-color: #ff0000;
+  background: @critical;
 }
 
 #custom-hypridle,
 #idle_inhibitor {
-  color: #f9e2af;
+  color: @yellow;
 }
 
 #custom-hypridle.notactive,
 #idle_inhibitor.activated {
-  color: #39ff14;
+  color: @success;
 }
 
 #mpd {
-  color: #2a5c45;
+  color: @text-dark;
 }
 
 #mpd.disconnected {
-  background-color: #f53c3c;
+  background: @critical;
 }
 
 #mpd.stopped {
-  background-color: #90b1b1;
+  background: @tertiary;
 }
 
 #mpd.paused {
-  background-color: #51a37a;
+  background: @green;
 }
 
 #custom-language {
-  color: #7da6ff;
+  color: @blue;
 }
 
 #custom-separator {
-  color: #606060;
+  color: @tertiary;
 }
