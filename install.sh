@@ -101,6 +101,7 @@ _copy_configs() {
     cp "$SRCDIR/scripts/"*.sh "$HOME/.config/hypr/scripts/" 2>/dev/null || true
 
     cp -r "$SRCDIR/components/rofi/"*.rasi "$HOME/.config/rofi/" 2>/dev/null || true
+    cp -r "$SRCDIR/components/rofi/"*.conf "$HOME/.config/rofi/" 2>/dev/null || true
     if [ -d "$SRCDIR/components/rofi/wallust" ]; then
         cp -r "$SRCDIR/components/rofi/wallust" "$HOME/.config/rofi/" 2>/dev/null || true
     fi
