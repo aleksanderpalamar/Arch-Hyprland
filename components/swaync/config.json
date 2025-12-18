@@ -2,39 +2,60 @@
   "positionX": "right",
   "positionY": "top",
   "layer": "overlay",
-  "control-center-width": 440,
-  "control-center-margin-top": 10,
-  "control-center-margin-bottom": 10,
-  "control-center-margin-right": 10,
-  "control-center-margin-left": 10,
-  "notification-window-width": 440,
-  "notification-2-action-buttons": false,
-  "notification-icon-size": 64,
-  "notification-body-image-height": 100,
-  "notification-body-image-width": 200,
-  "timeout": 10,
-  "timeout-low": 5,
-  "timeout-critical": 0,
-  "fit-to-screen": true,
-  "keyboard-shortcuts": true,
-  "image-visibility": "when-available",
-  "transition-time": 200,
-  "hide-on-clear": true,
-  "hide-on-action": true,
-  "scripts": {},
-  "notification-visibility": {},
-  "widgets": ["title", "dnd", "notifications"],
+  "notification-window-width": 350,
+  "timeout": 6,
+  "timeout-low": 3,
+  "timeout-critical": 3,
+  "notification-icon-size": 34,
+  "notification-body-image-height": 300,
+  "notification-body-image-width": 300,
+  "control-center-layer": "top",
+  "control-center-width": 330,
+  "control-center-height": 900,
+  "control-center-margin-top": 5,
+  "control-center-margin-bottom": 5,
+  "control-center-margin-right": 8,
+  "control-center-margin-left": 0,
+  "widgets": ["dnd", "buttons-grid", "mpris", "title", "notifications"],
   "widget-config": {
     "title": {
-      "text": "Notifications",
+      "text": " Notifications",
       "clear-all-button": true,
-      "button-text": "Clear All"
+      "button-text": " Clear"
+    },
+    "volume": {
+      "label": "󰕾",
+      "show-per-app": true
     },
     "dnd": {
       "text": "Do Not Disturb"
     },
-    "notifications": {
-      "text": "Notifications"
+    "mpris": {
+      "image-size": 60,
+      "image-radius": 12,
+      "blur": true,
+      "show-player": "all",
+      "show-when-paused": true
     }
+  },
+  "buttons-grid": {
+    "actions": [
+      {
+        "label": " Terminal",
+        "command": "kitty"
+      },
+      {
+        "label": " File Manager",
+        "command": "nautilus"
+      },
+      {
+        "label": " Browser",
+        "command": "firefox"
+      },
+      {
+        "label": "󰒲 System Monitor",
+        "command": "gnome-system-monitor"
+      }
+    ]
   }
 }
