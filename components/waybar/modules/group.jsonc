@@ -1,0 +1,76 @@
+{
+  "group/app_drawer": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "custom/menu",
+      "transition-left-to-right": true
+    },
+    "modules": [
+      "custom/menu",
+      "custom/light_dark",
+      "custom/file_manager",
+      "custom/tty",
+      "custom/browser",
+      "custom/settings"
+    ]
+  },
+  "group/laptop": {
+    "orientation": "inherit",
+    "modules": ["backlight", "battery"]
+  },
+  "custom/playerctl": {
+    "format": "<span>{}</span>",
+    "return-type": "json",
+    "max-length": 25,
+    "exec": "playerctl -a metadata --format '{\"text\": \"{{artist}}  {{markup_escape(title)}}\", \"tooltip\": \"{{playerName}} : {{markup_escape(title)}}\", \"alt\": \"{{status}}\", \"class\": \"{{status}}\"}' -F",
+    "on-click-middle": "playerctl play-pause",
+    "on-click": "playerctl previous",
+    "on-click-right": "playerctl next",
+    "scroll-step": 5,
+    "on-scroll-up": "~/.config/hypr/scripts/Volume.sh --inc",
+    "on-scroll-down": "~/.config/hypr/scripts/Volume.sh --dec",
+    "smooth-scrolling-threshold": 1
+  },
+  "group/status": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "custom/power",
+      "transition-left-to-right": false
+    },
+    "modules": [
+      "custom/power",
+      "custom/lock",
+      "keyboard-state",
+      "custom/keyboard"
+    ]
+  },
+  "group/notify": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "custom/swaync",
+      "transition-left-to-right": false
+    },
+    "modules": ["custom/swaync"]
+  },
+  "group/power": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 500,
+      "children-class": "drawer-child",
+      "transition-left-to-right": false
+    },
+    "modules": ["custom/power", "custom/quit", "custom/lock", "custom/reboot"]
+  },
+  "group/power#vert": {
+    "orientation": "inherit",
+    "drawer": {
+      "transition-duration": 300,
+      "children-class": "not-memory",
+      "transition-left-to-right": false
+    },
+    "modules": ["custom/power", "custom/lock", "custom/logout", "custom/reboot"]
+  }
+}

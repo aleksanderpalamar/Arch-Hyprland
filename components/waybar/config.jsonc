@@ -1,13 +1,15 @@
 {
   "include": [
-    "~/.config/waybar/Modules",
-    "~/.config/waybar/ModulesGroups",
-    "~/.config/waybar/ModulesCustom",
     "~/.config/waybar/modules/system.jsonc",
+    "~/.config/waybar/modules/tray.jsonc",
+    "~/.config/waybar/modules/clock.jsonc",
     "~/.config/waybar/modules/network.jsonc",
     "~/.config/waybar/modules/audio.jsonc",
-    "~/.config/waybar/modules/interface.jsonc"
+    "~/.config/waybar/modules/interface.jsonc",
+    "~/.config/waybar/modules/custom.jsonc",
+    "~/.config/waybar/modules/group.jsonc"
   ],
+
   "layer": "top",
   "mode": "dock",
   "exclusive": true,
@@ -21,7 +23,7 @@
   "margin-right": 0,
   "gtk-layer-shell": true,
   "modules-left": [
-    "hyprland/workspaces#numbers",
+    "hyprland/workspaces",
     "custom/separator#line"
     //"hyprland/window"
   ],

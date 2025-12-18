@@ -23,11 +23,7 @@
   "hide-on-action": true,
   "scripts": {},
   "notification-visibility": {},
-  "widgets": [
-    "title",
-    "dnd",
-    "notifications"
-  ],
+  "widgets": ["title", "dnd", "notifications"],
   "widget-config": {
     "title": {
       "text": "Notifications",
