@@ -171,14 +171,6 @@ _initialize_system() {
     else
         _warn "✗ Erro ao copiar scripts"
     fi
-    
-    # Verifica se o IA Chat foi instalado corretamente
-    if [ -f "$HOME/.config/hypr/scripts/ia_chat_hypr.py" ]; then
-        _print "✓ IA Chat instalado"
-        if [ -f "$HOME/.config/hypr/scripts/.env" ]; then
-            _warn "⚠ Configure o arquivo ~/.config/hypr/scripts/.env com suas credenciais de API"
-        fi
-    fi
 
     _fix_deprecated_configs
     
